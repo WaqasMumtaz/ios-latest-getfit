@@ -23,6 +23,8 @@
     "react-native-gesture-handler": "^1.4.1",
     "react-native-google-fit": "^0.9.17",
     "react-native-image-picker": "^2.2.1",
+    "react-native-keyboard-aware-scrollview": "^2.1.0",
+    "react-native-keyboard-aware-view": "0.0.14",
     "react-native-loading-spinner-overlay": "^1.0.1",
     "react-native-material-dropdown": "^0.11.1",
     "react-native-modal": "^11.5.3",

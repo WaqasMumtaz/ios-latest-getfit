@@ -138,25 +138,54 @@ class Reportscreen extends React.Component {
       if (userGoalSteps[i].userId == userId) {
         const goalStepsData = userGoalSteps[i];
         const justGoalSteps = userGoalSteps[i].goalSteps;
-        // console.log('goalSteps >>', justGoalSteps)
+         console.log('goalSteps >>', goalStepsData)
         const date = goalStepsData.date;
-        // console.log('date >>', date);
+        console.log('goal date >>', date);
         const getMonth = goalStepsData.month;
         const getMontName = monthName[getMonth];
         goalStepsData.monthName = getMontName;
-        // console.log('month >>', getMonth);
+        console.log('goal month >>', getMonth);
         const getYear = goalStepsData.year;
-        // console.log('current year >>', getYear);
+        console.log('goal steps year >>', getYear);
         // let checkWeekDay = (Math.abs(currentDayOfWeek - goalStepsData.dayOfWeek));
         // console.log('weekDay >>', checkWeekDay)
-        let checkDate = Number(date) - currentDate;
-        let checkMonth = Number(getMonth) - currentMonth;
-        let checkYear = Number(getYear) - currentYear;
-        const weekDate = Number(currentDate - 7);
+        // let checkDate = Number(date) - currentDate;
+        // let checkMonth = Number(getMonth) - currentMonth;
+        // let checkYear = Number(getYear) - currentYear;
+        // const weekDate = Number(currentDate - 7);
         // console.log('week Date >>', weekDate);
         // console.log('check date >>', checkDate);
         // console.log('check month >>', checkMonth);
         // console.log('checkyear >>', checkYear);
+         console.log('moment time >>', moment())
+        let dayCount = 7;
+        var toDate = new Date();
+        for (var k = dayCount; k = dayCount; k--) {
+          var sevenDaysAgo = moment().subtract(dayCount, 'days').toDate();
+          console.log('SevenDaysAgo Data >>', sevenDaysAgo);
+          var dayOfMonthAgo = sevenDaysAgo.getDate() + 1;
+          console.log('dayOfMonthAgo >>', dayOfMonthAgo);
+          var monthNoOfYear = sevenDaysAgo.getMonth() + 1;
+          console.log('monthNoOfYear >>', monthNoOfYear);
+           var yearNo = sevenDaysAgo.getFullYear();
+           dayCount--;
+           console.log('DayCount >>', dayCount);
+          //  console.log('jo date dali >', Number(date));
+          //  console.log('jo month dala >',Number(getMonth));
+          //  console.log('jo year dala tha >', Number(getYear));
+          // for (var j = 0; j < data.length; j++) {
+            if (dayOfMonthAgo == Number(date) && monthNoOfYear == Number(getMonth) &&
+              yearNo == Number(getYear)) {
+                dataExcersiceArr = [...dataExcersiceArr, justGoalSteps];
+                console.log('If Condition Data Exercise >>', dataExcersiceArr);
+                this.setState({
+                  weekAgoDateDataGoalSteps: dataExcersiceArr
+                })
+              // weeksProduct.push(data[j])
+            }
+          }
+
+        // console.log('Waqas Mumtaz');
         // if (checkDate == 0 || checkDate == -1 || checkDate == -2 || checkDate == -3 || checkDate == -4 || checkDate == -5 ||
         //   checkDate == -6 || checkDate == -7 && checkMonth == 0 && checkYear == 0) {
         //   dataExcersiceArr = [...dataExcersiceArr, goalStepsData];
@@ -164,17 +193,24 @@ class Reportscreen extends React.Component {
         //     weekAgoDateDataGoalSteps: dataExcersiceArr
         //   },()=>{console.log('State Goal Steps >>',this.state.weekAgoDateDataGoalSteps)})
         // }
-        if (checkDate == 0 || checkDate == -1 || checkDate == -2 || checkDate == -3 || checkDate == -4 || checkDate == -5 ||
-          checkDate == -6 || checkDate == -7 || weekDate == -5 || weekDate == -4 || weekDate == -3 || weekDate == -2 || weekDate == -1
-          && checkMonth == 0 || checkMonth == -1 || checkMonth == -2 || checkMonth == -3 ||
-          checkMonth == -4 || checkMonth == -5 || checkMonth == -6 || checkMonth == -7
-          || checkMonth == -8 || checkMonth == -9 || checkMonth == -10 ||
-          checkMonth == -11 || checkMonth == 0 && checkYear == 0) {
-          dataExcersiceArr = [...dataExcersiceArr, justGoalSteps];
-          this.setState({
-            weekAgoDateDataGoalSteps: dataExcersiceArr
-          })
-        }
+        // if (checkDate === 0 || checkDate === -1 || checkDate === -2 ||
+        //     checkDate === -3 || checkDate === -4 || checkDate === -5 ||
+        //     checkDate === -6 || checkDate === -7 && checkMonth === 0
+        //     ) {
+        //   console.log('True Condition')
+        //   dataExcersiceArr = [...dataExcersiceArr, justGoalSteps];
+        //   console.log('If Condition Data Exercise >>', dataExcersiceArr);
+        //   this.setState({
+        //     weekAgoDateDataGoalSteps: dataExcersiceArr
+        //   })
+        // }
+        // else {
+        //   dataExcersiceArr = [...dataExcersiceArr, 0];
+        //   console.log('Else Condition Data Exercise >>', dataExcersiceArr);
+        //   this.setState({
+        //     weekAgoDateDataGoalSteps: dataExcersiceArr
+        //   })
+        // }
       }
 
     }
@@ -184,21 +220,21 @@ class Reportscreen extends React.Component {
       if (userPedometerDataSteps[i].userId == userId) {
         const goalStepsData = userPedometerDataSteps[i];
         const justGoalSteps = userPedometerDataSteps[i].stepCount;
-        // console.log('goalSteps >>', justGoalSteps)
-        const date = goalStepsData.date;
+        //  console.log('goalSteps >>', goalStepsData)
+        const date = Number(goalStepsData.date);
         // console.log('date >>', date);
-        const getMonth = goalStepsData.month;
-        const getMontName = monthName[getMonth];
-        goalStepsData.monthName = getMontName;
+        const getMonth = Number(goalStepsData.month);
+        // const getMontName = Number(monthName[getMonth]);
+        // goalStepsData.monthName = getMontName;
         // console.log('month >>', getMonth);
-        const getYear = goalStepsData.year;
+        const getYear = Number(goalStepsData.year);
         // console.log('current year >>', getYear);
         // let checkWeekDay = (Math.abs(currentDayOfWeek - goalStepsData.dayOfWeek));
         // console.log('weekDay >>', checkWeekDay)
-        let checkDate = Number(date) - currentDate;
-        let checkMonth = Number(getMonth) - currentMonth;
-        let checkYear = Number(getYear) - currentYear;
-        const weekDate = Number(currentDate - 7);
+        // let checkDate = Number(date) - currentDate;
+        // let checkMonth = Number(getMonth) - currentMonth;
+        // let checkYear = Number(getYear) - currentYear;
+        // const weekDate = Number(currentDate - 7);
         // console.log('week Date >>', weekDate);
         // console.log('check date >>', checkDate);
         // console.log('check month >>', checkMonth);
@@ -210,17 +246,44 @@ class Reportscreen extends React.Component {
         //     weekAgoDateDataGoalSteps: dataExcersiceArr
         //   },()=>{console.log('State Goal Steps >>',this.state.weekAgoDateDataGoalSteps)})
         // }
-        if (checkDate == 0 || checkDate == -1 || checkDate == -2 || checkDate == -3 || checkDate == -4 || checkDate == -5 ||
-          checkDate == -6 || checkDate == -7 || weekDate == -5 || weekDate == -4 || weekDate == -3 || weekDate == -2 || weekDate == -1
-          && checkMonth == 0 || checkMonth == -1 || checkMonth == -2 || checkMonth == -3 ||
-          checkMonth == -4 || checkMonth == -5 || checkMonth == -6 || checkMonth == -7
-          || checkMonth == -8 || checkMonth == -9 || checkMonth == -10 ||
-          checkMonth == -11 || checkMonth == 0 && checkYear == 0) {
-          dataExcersiceArr = [...dataExcersiceArr, justGoalSteps];
-          this.setState({
-            weekAgoDateDataRunSteps: dataExcersiceArr
-          })
-        }
+
+        let dayCount = 7;
+        var toDate = new Date();
+        for (var k = dayCount; k = dayCount; k--) {
+          var sevenDaysAgo = moment().subtract(dayCount, 'days').toDate();
+          console.log('SevenDaysAgo Data >>', sevenDaysAgo);
+          var dayOfMonthAgo = sevenDaysAgo.getDate() + 1;
+          console.log('dayOfMonthAgo >>', dayOfMonthAgo);
+          var monthNoOfYear = sevenDaysAgo.getMonth() + 1;
+          console.log('monthNoOfYear >>', monthNoOfYear);
+           var yearNo = sevenDaysAgo.getFullYear();
+           dayCount--;
+          //  console.log('jo date dali >', Number(date));
+          //  console.log('jo month dala >',Number(getMonth));
+          //  console.log('jo year dala tha >', Number(getYear));
+          // for (var j = 0; j < data.length; j++) {
+            if (dayOfMonthAgo == date && monthNoOfYear == getMonth &&
+              yearNo == getYear) {
+                dataExcersiceArr = [...dataExcersiceArr, justGoalSteps];
+                console.log('If Condition Data Exercise >>', dataExcersiceArr);
+                this.setState({
+                  weekAgoDateDataRunSteps: dataExcersiceArr
+                })
+              // weeksProduct.push(data[j])
+            }
+          }
+
+        // if (checkDate == 0 || checkDate == -1 || checkDate == -2 || checkDate == -3 || checkDate == -4 || checkDate == -5 ||
+        //   checkDate == -6 || checkDate == -7 
+        //   && checkMonth == 0 || checkMonth == -1 || checkMonth == -2 || checkMonth == -3 ||
+        //   checkMonth == -4 || checkMonth == -5 || checkMonth == -6 || checkMonth == -7
+        //   || checkMonth == -8 || checkMonth == -9 || checkMonth == -10 ||
+        //   checkMonth == -11 || checkMonth == 0 && checkYear == 0) {
+        //   dataExcersiceArr = [...dataExcersiceArr, justGoalSteps];
+        //   this.setState({
+        //     weekAgoDateDataRunSteps: dataExcersiceArr
+        //   })
+        // }
       }
     }
 

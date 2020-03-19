@@ -10,8 +10,12 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
-  AsyncStorage
+  AsyncStorage,
+  KeyboardAvoidingView
 } from 'react-native';
+import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
+// import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+// import {KeyboardAvoidingView} from 'react-native';
 import styles from '../Styling/ChatScreenStyle';
 import ImagePicker from 'react-native-image-picker';
 import FilePickerManager from 'react-native-file-picker';
@@ -1176,6 +1180,8 @@ class Chatscreen extends React.Component {
     })
     // console.log(chatMessages , 'chatMessages')
     return (
+      
+      <KeyboardAwareView animated={true}>
       <View style={styles.mainContainer}>
         <View style={styles.childMainContainer}>
           {opponnetAvatarSource != undefined ?
@@ -1193,7 +1199,7 @@ class Chatscreen extends React.Component {
               </TouchableOpacity>
             </View>
           }
-          <ScrollView style={styles.scrollContainer} contentContainerStyle={{ flexGrow: 1 }}
+           <ScrollView style={styles.scrollContainer} contentContainerStyle={{ flexGrow: 1 }}
             ref={ref => this.scrollView = ref}
             onContentSizeChange={(contentWidth, contentHeight) => {
               this.scrollView.scrollToEnd({ animated: true });
@@ -1260,6 +1266,7 @@ class Chatscreen extends React.Component {
               </View>}
             </View>
           </ScrollView>
+          {/* </KeyboardAvoidingView> */}
 
           {this.state.isLoading == true ?
             <View style={styles.spinnerContainer}>
@@ -1331,6 +1338,8 @@ class Chatscreen extends React.Component {
 
         </View>
       </View>
+      </KeyboardAwareView>
+      
     );
   }
 }
