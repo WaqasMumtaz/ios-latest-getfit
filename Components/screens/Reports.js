@@ -5,6 +5,7 @@ import Wheelspiner from '../Progress Wheel/Progress';
 import ChartScreen from '../BarChart/BarChart';
 import HttpUtils from '../Services/HttpUtils';
 import AsyncStorage from '@react-native-community/async-storage';
+import moment from "moment";
 
 const { height } = Dimensions.get('window');
 
@@ -67,10 +68,10 @@ class Reportscreen extends React.Component {
     };
     // console.log('user id >>', userObj)
     let userPedometerData = await HttpUtils.post('getpedometerbyid', userObj);
-    // console.log('user get pedometer data >>', userPedometerData);
+     console.log('user get pedometer data >>', userPedometerData);
     let retrieveGoalSteps = await HttpUtils.post('getgoal', userObj);
 
-    // console.log('user pedometer data >>',userPedometerData.content);
+     console.log('retrieveGoalSteps >>',retrieveGoalSteps);
 
     if (userPedometerData.code == 200 && retrieveGoalSteps.code == 200) {
       const userContent = userPedometerData.content;
@@ -99,6 +100,7 @@ class Reportscreen extends React.Component {
     let weightData = dataWeight.content;
     let userGoalSteps = retrieveGoalSteps.content;
     let userPedometerDataSteps = userPedometerData.content
+    console.log('User GoalSteps >>', userGoalSteps)
 
     //gettibg curent date
     const currentDayOfWeek = new Date().getDay() + 1;
@@ -137,6 +139,7 @@ class Reportscreen extends React.Component {
       // console.log(userGoalSteps[i])
       if (userGoalSteps[i].userId == userId) {
         const goalStepsData = userGoalSteps[i];
+        console.log('User Goal Steps Data >>', goalStepsData);
         const justGoalSteps = userGoalSteps[i].goalSteps;
          console.log('goalSteps >>', goalStepsData)
         const date = goalStepsData.date;

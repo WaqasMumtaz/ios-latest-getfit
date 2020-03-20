@@ -25,7 +25,7 @@ const showMeasureStyles =StyleSheet.create({
     },
     headingStyle:{
         fontSize: 18,
-        // fontFamily: "MontserratMedium",
+        // fontFamily: "MontserratExtraBold",
         color: '#000000',
         
     },
@@ -75,7 +75,7 @@ const showMeasureStyles =StyleSheet.create({
     },
     cardDateStyle:{
         color:'white',
-        // fontFamily: "MontserratMedium",
+        // fontFamily: "MontserratExtraBold",
         fontSize:14,
         marginTop:5
     },

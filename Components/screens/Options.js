@@ -65,7 +65,7 @@ class Options extends React.Component {
                   <Text style={styles.forText}>Invoices</Text>
                 </TouchableOpacity></View>
               <View style={styles.itemsStyle}>
-                <TouchableOpacity onPress={() => { navigate('LogMeasurementsScreen') }}>
+                <TouchableOpacity onPress={() => { navigate('ShowMeasurementsScreen') }}>
                   <Text style={styles.forText}>Log Measurements</Text>
                 </TouchableOpacity></View>
               <View style={styles.itemsStyle}><TouchableOpacity onPress={() => { navigate('SettingScreen') }}><Text style={styles.forText}>Settings</Text></TouchableOpacity></View>

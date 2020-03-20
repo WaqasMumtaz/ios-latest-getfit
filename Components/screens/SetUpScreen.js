@@ -180,17 +180,28 @@ class Setupscreen extends React.Component {
             //console.log('height inches centi >>>', heightInchCentimeter);
             const totalHeightCentimeter = heightCentimeter + heightInchCentimeter;
             //console.log('total centimeter >>>',totalHeightCentimeter)
+            const currentDayOfWeek = new Date().getDay() + 1;
+            const currentDate = new Date().getDate();
+            let currentMonth = new Date().getMonth() + 1;
+            const currentYear = new Date().getFullYear();
+            console.log('current week >>', currentDayOfWeek);
+            console.log('currentDate >>', currentDate);
+            console.log('currentMont >>', currentMonth);
+            console.log('currentYear >>', currentYear);
             const userData = {
                 dob: dob,
                 heightFit: height,
                 heightInch: heightInch,
                 currentWeight: currentWeight,
-                date: date,
+                date: currentDate,
                 time: time,
                 userId: userId,
                 heightCentimeter: totalHeightCentimeter,
                 fitnessGoal: fitnessResult,
-                goalSteps: goalSteps
+                goalSteps:goalSteps,
+                dayOfWeek:currentDayOfWeek,
+                month:currentMonth,
+                year:currentYear
             }
             console.log('send user data >>>', userData)
             try {
@@ -239,7 +250,7 @@ class Setupscreen extends React.Component {
             maintain,
             maintainClicked
         } = this.state;
-        console.log('your fitness result >>>', fitnessResult)
+        console.log('your fitness result >>>', goalSteps)
         return (
             <View style={styles.mainContainer}>
                 <View style={styles.childContainer}>

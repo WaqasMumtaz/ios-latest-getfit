@@ -9,6 +9,7 @@ import Setupscreen from '../Components/screens/SetUpScreen';
 import AddExercise from '../Components/screens/AddExercise';
 import Exerciselog from '../Components/screens/ExerciseLog';
 import LogMeasurementsScreen from '../Components/screens/LogMeasurements';
+import ShowMeasurementsScreen from '../Components/screens/ShowMeasurements';
 import Macrocalculator from '../Components/screens/MacroCalculator';
 import SettingScreen from '../Components/screens/Setting';
 import BMICalculator from '../Components/screens/CalculateBMI';
@@ -90,6 +91,14 @@ const MainNavigator = createStackNavigator({
       
       LogMeasurementsScreen: {
         screen: LogMeasurementsScreen,
+        navigationOptions: {
+          headerStyle: {
+            elevation: 0,
+          }
+        }
+      },
+      ShowMeasurementsScreen: {
+        screen: ShowMeasurementsScreen,
         navigationOptions: {
           headerStyle: {
             elevation: 0,

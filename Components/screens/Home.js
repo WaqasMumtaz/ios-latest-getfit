@@ -157,6 +157,29 @@ class Homescreen extends React.Component {
         }
       })
     }
+    let dataUser = await HttpUtilsFile.get('getweightlog');
+    console.log('dataUser getWeightLog >>', dataUser);
+    console.log('Current User Id >>', this.state.userId);
+    // let code = dataUser.code;
+    //         if (code == 200) {
+    //             let dataArr = [];
+    //             //console.log(dataUser.content)
+    //             let checkId = dataUser.content;
+    //             for (const i in checkId) {
+    //                 //console.log(checkId[i])
+    //                 let data = checkId[i];
+    //                 if (data.userId == this.state.userId) {
+    //                     dataArr = [...dataArr, data]
+    //                     this.setState({
+    //                         allDataUser: dataArr
+    //                     })
+    //                 }
+    //             }
+
+    //         }
+    //         else {
+    //             console.log('User Not Login')
+    //         }
 
   }
 
