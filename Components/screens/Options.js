@@ -47,8 +47,8 @@ class Options extends React.Component {
 
             <View style={styles.heading}><Text style={styles.headingText}>More Options</Text></View>
             <View style={styles.itemsContainer}>
-              <View style={styles.itemsStyle}><TouchableOpacity onPress={() => { navigate('Macrocalculator') }}><Text style={styles.forText}>Calories Limit</Text></TouchableOpacity></View>
-              <View style={styles.itemsStyle}><TouchableOpacity onPress={() => { navigate('BMICalculator') }}><Text style={styles.forText}>BMI Calculator</Text></TouchableOpacity></View>
+              {/* <View style={styles.itemsStyle}><TouchableOpacity onPress={() => { navigate('Macrocalculator') }}><Text style={styles.forText}>Calories Limit</Text></TouchableOpacity></View>
+              <View style={styles.itemsStyle}><TouchableOpacity onPress={() => { navigate('BMICalculator') }}><Text style={styles.forText}>BMI Calculator</Text></TouchableOpacity></View> */}
               <View style={styles.itemsStyle}><TouchableOpacity onPress={() => { navigate('Profile') }}><Text style={styles.forText}>Profile</Text></TouchableOpacity></View>
               <View style={styles.itemsStyle}>
                 <TouchableOpacity

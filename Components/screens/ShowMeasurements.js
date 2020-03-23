@@ -130,8 +130,8 @@ class ShowMeasurementsScreen extends React.Component {
                             <Text style={styles.weightTextStyle}>{item.weight}</Text>
                             <Text style={styles.textStyle}>Weight</Text>
 
-                            <Text style={styles.waistTextStyle}>{item.waist}</Text>
-                            <Text style={styles.textStyle}>Waist</Text>
+                            <Text style={styles.waistTextStyle}>{item.waistAtNaval}</Text>
+                            <Text style={styles.textStyle}>Waist (At Naval)</Text>
 
                             <View style={styles.detailViewContainer}>
                                 <Text style={styles.detailViewTextStyle}>View detailed</Text>

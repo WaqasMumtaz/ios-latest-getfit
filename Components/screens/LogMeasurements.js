@@ -8,6 +8,8 @@ import Toast, { DURATION } from 'react-native-easy-toast';
 // import PickDate from '../Common/datePicker';
 // import DatePicker from 'react-native-datepicker';
 import OverlayLoader from '../Loader/OverlaySpinner'
+import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
+
 
 const { height } = Dimensions.get('window');
 
@@ -26,7 +28,11 @@ class LogMeasurementsScreen extends React.Component {
             shoulder: '',
             biceps: '',
             chest: '',
-            waist: '',
+            waistAtNaval: '',
+            above2Inches:'',
+            below2Inches:'',
+            hips:'',
+            calves:'',
             thigh: '',
             day: '',
             userId: '',
@@ -106,24 +112,40 @@ class LogMeasurementsScreen extends React.Component {
             shoulder,
             biceps,
             chest,
-            waist,
+            waistAtNaval,
+            below2Inches,
+            above2Inches,
+            calves,
+            hips,
             thigh,
             year
         } = this.state;
         // console.log('Neck -->', neck, 'Shoulder -->', shoulder)
         let addWeight = {}
-        // if (weight == '') {
-        //     this.setState({
-        //         weightValidation: true,
-        //         isLoading:false,
-        //     })
-        // }
-        // else {
-        //     this.setState({
-        //         weightValidation: false,
-        //         isLoading:false,
-        //     })
-        // }
+        if (weight == '') {
+            this.setState({
+                weightValidation: true,
+                isLoading:false,
+            })
+        }
+        else {
+            this.setState({
+                weightValidation: false,
+                isLoading:false,
+            })
+        }
+         if(waistAtNaval == ''){
+            this.setState({
+                waistValidation: true,
+                isLoading:false,
+            })
+        }
+        else {
+            this.setState({
+                waistValidation: false,
+                isLoading:false,
+            })
+        }
         // if (neck == ''){
         //     this.setState({
         //         neckValidation: true,
@@ -173,18 +195,7 @@ class LogMeasurementsScreen extends React.Component {
         //     })
         // }
 
-        // if(waist == ''){
-        //     this.setState({
-        //         waistValidation: true,
-        //         isLoading:false,
-        //     })
-        // }
-        // else {
-        //     this.setState({
-        //         waistValidation: false,
-        //         isLoading:false,
-        //     })
-        // }
+       
         // if(thigh == ''){
         //     this.setState({
         //         thighValidation: true,
@@ -192,6 +203,7 @@ class LogMeasurementsScreen extends React.Component {
         //     })
 
         // }
+        
         // else {
         //     this.setState({
         //         thighValidation: false,
@@ -199,13 +211,17 @@ class LogMeasurementsScreen extends React.Component {
         //     })
         // }
 
-        if (weight != '' || neck != '' || shoulder != '' || biceps != '' || chest != '' || waist != '' || thigh != '') {
+        if (weight != ''  && waistAtNaval != '') {
             addWeight.weight = weight + ' KG';
             addWeight.neck = neck + ' Inches';
             addWeight.shoulder = shoulder + ' Inches';
             addWeight.biceps = biceps + ' Inches';
             addWeight.chest = chest + ' Inches';
-            addWeight.waist = waist + ' Inches';
+            addWeight.waistAtNaval = waistAtNaval + ' Inches';
+            addWeight.below2Inches = below2Inches + ' Inches';
+            addWeight.above2Inches = above2Inches + ' Inches';
+            addWeight.calves = calves + ' Inches';
+            addWeight.hips = hips + ' Inches';
             addWeight.thigh = thigh + ' Inches';
             addWeight.month = monthArr[monthNo];
             addWeight.day = weekDay[day];
@@ -223,7 +239,7 @@ class LogMeasurementsScreen extends React.Component {
             let dataUser = await HttpUtils.post('weightLog', addWeight)
             //console.log(dataUser, 'dataUser')
             let userMsg = dataUser.msg;
-            if (dataUser.code) {
+            if (dataUser.code == 200) {
                 this.setState({
                     isLoading: false
                 }, () => {
@@ -231,7 +247,7 @@ class LogMeasurementsScreen extends React.Component {
                     this.props.navigation.navigate('BottomTabe')
                 })
             }
-            else if (!dataUser.code) {
+            else if (!dataUser.code == 200) {
                 this.setState({
                     isLoading: false
                 }, () => {
@@ -291,12 +307,14 @@ class LogMeasurementsScreen extends React.Component {
             shoulder,
             date
         } = this.state;
-        // console.log('Neck -->>', neck , 'Shoulder-->>',shoulder)
+     console.log('waistAtNaval -->>', this.state.waistAtNaval ,
+      'Hips -->>',this.state.hips ,
+      'above', this.state.above2Inches
+      )
         //console.log('date >>', date)
         return (
+            <KeyboardAwareView animated={true}>
             <View style={styles.mainContainer}>
-
-
                 <ScrollView style={{ flex: 1, backgroundColor: 'white', height: height }} contentContainerStyle={{ flexGrow: 1 }}  >
                     {/* <View style={styles.childContainer}> */}
                     <View style={styles.headingContainer}>
@@ -311,14 +329,14 @@ class LogMeasurementsScreen extends React.Component {
                             placeholderTextColor="#4f4f4f"
                             style={styles.inputTextStyle}
                             keyboardType={"numeric"}
-                            maxLength={3}
+                            maxLength={7}
                             onChangeText={(weight) => this.setState({ weight: weight })}
                         />
                         <View style={styles.unitTextStyle}><Text style={styles.textStyle}>KG</Text></View>
                     </View>
                     <View style={styles.validationContainer}>
                         {weightValidation ?
-                            <Text style={styles.validationInstruction}>Please Enter Your Weight </Text>
+                            <Text style={styles.validationInstruction}>Weight Required</Text>
                             : null}
                     </View>
                     <Text style={styles.labelText}>Neck</Text>
@@ -327,7 +345,7 @@ class LogMeasurementsScreen extends React.Component {
                             placeholderTextColor="#4f4f4f"
                             style={styles.inputTextStyle}
                             keyboardType={"numeric"}
-                            maxLength={3}
+                            maxLength={7}
                             onChangeText={(neck) => this.setState({ neck: neck })}
                         />
                         <View style={styles.unitTextStyle}><Text style={styles.textStyle}>Inches</Text></View>
@@ -343,7 +361,7 @@ class LogMeasurementsScreen extends React.Component {
                             placeholderTextColor="#4f4f4f"
                             style={styles.inputTextStyle}
                             keyboardType={"numeric"}
-                            maxLength={3}
+                            maxLength={7}
                             onChangeText={(shoulder) => this.setState({ shoulder: shoulder })}
                         />
                         <View style={styles.unitTextStyle}><Text style={styles.textStyle}>Inches</Text></View>
@@ -359,7 +377,7 @@ class LogMeasurementsScreen extends React.Component {
                             placeholderTextColor="#4f4f4f"
                             style={styles.inputTextStyle}
                             keyboardType={"numeric"}
-                            maxLength={3}
+                            maxLength={7}
                             onChangeText={(biceps) => this.setState({ biceps: biceps })}
                         />
                         <View style={styles.unitTextStyle}><Text style={styles.textStyle}>Inches</Text></View>
@@ -375,7 +393,7 @@ class LogMeasurementsScreen extends React.Component {
                             placeholderTextColor="#4f4f4f"
                             style={styles.inputTextStyle}
                             keyboardType={"numeric"}
-                            maxLength={3}
+                            maxLength={7}
                             onChangeText={(chest) => this.setState({ chest: chest })}
                         />
                         <View style={styles.unitTextStyle}><Text style={styles.textStyle}>Inches</Text></View>
@@ -385,29 +403,80 @@ class LogMeasurementsScreen extends React.Component {
                             <Text style={styles.validationInstruction}>Please Enter Your Chest </Text>
                             : null}
                     </View>
-                    <Text style={styles.labelText}>Waist</Text>
+                    <Text style={styles.labelText}>Waist (At Naval)</Text>
                     <View style={styles.inputContainer}>
                         <TextInput placeholder="0"
                             placeholderTextColor="#4f4f4f"
                             style={styles.inputTextStyle}
                             keyboardType={"numeric"}
-                            maxLength={3}
-                            onChangeText={(waist) => this.setState({ waist: waist })}
+                            maxLength={7}
+                            onChangeText={(waist) => this.setState({ waistAtNaval: waist })}
                         />
                         <View style={styles.unitTextStyle}><Text style={styles.textStyle}>Inches</Text></View>
                     </View>
+                     
                     <View style={styles.validationContainer}>
                         {waistValidation ?
-                            <Text style={styles.validationInstruction}>Please Enter Your Waist </Text>
+                            <Text style={styles.validationInstruction}>Waist At Naval Required </Text>
                             : null}
                     </View>
+
+                    <View style={{marginTop:20}}></View>
+                    <Text style={styles.labelText}>2 Inches Above Naval</Text>
+                    <View style={styles.inputContainer}>
+                        <TextInput placeholder="0"
+                            placeholderTextColor="#4f4f4f"
+                            style={styles.inputTextStyle}
+                            keyboardType={"numeric"}
+                            maxLength={7}
+                            onChangeText={(waist) => this.setState({ above2Inches: waist })}
+                        />
+                        <View style={styles.unitTextStyle}><Text style={styles.textStyle}>Inches</Text></View>
+                    </View>
+                    <View style={{marginTop:20}}></View>
+                    <Text style={styles.labelText}>2 Inches Below Naval</Text>
+                    <View style={styles.inputContainer}>
+                        <TextInput placeholder="0"
+                            placeholderTextColor="#4f4f4f"
+                            style={styles.inputTextStyle}
+                            keyboardType={"numeric"}
+                            maxLength={7}
+                            onChangeText={(waist) => this.setState({ below2Inches: waist })}
+                        />
+                        <View style={styles.unitTextStyle}><Text style={styles.textStyle}>Inches</Text></View>
+                    </View>
+                    <View style={{marginTop:20}}></View>
+                    <Text style={styles.labelText}>Hips</Text>
+                    <View style={styles.inputContainer}>
+                        <TextInput placeholder="0"
+                            placeholderTextColor="#4f4f4f"
+                            style={styles.inputTextStyle}
+                            keyboardType={"numeric"}
+                            maxLength={7}
+                            onChangeText={(hips) => this.setState({hips})}
+                        />
+                        <View style={styles.unitTextStyle}><Text style={styles.textStyle}>Inches</Text></View>
+                    </View>
+                    <View style={{marginTop:20}}></View>
+                    <Text style={styles.labelText}>Calves</Text>
+                    <View style={styles.inputContainer}>
+                        <TextInput placeholder="0"
+                            placeholderTextColor="#4f4f4f"
+                            style={styles.inputTextStyle}
+                            keyboardType={"numeric"}
+                            maxLength={7}
+                            onChangeText={(calves) => this.setState({ calves })}
+                        />
+                        <View style={styles.unitTextStyle}><Text style={styles.textStyle}>Inches</Text></View>
+                    </View>
+                   
                     <Text style={styles.labelText}>Thigh</Text>
                     <View style={styles.inputContainer}>
                         <TextInput placeholder="0"
                             placeholderTextColor="#4f4f4f"
                             style={styles.inputTextStyle}
                             keyboardType={"numeric"}
-                            maxLength={3}
+                            maxLength={7}
                             onChangeText={(thigh) => this.setState({ thigh: thigh })}
                         />
                         <View style={styles.unitTextStyle}><Text style={styles.textStyle}>Inches</Text></View>
@@ -449,6 +518,7 @@ class LogMeasurementsScreen extends React.Component {
                 </ScrollView>
 
             </View>
+            </KeyboardAwareView>
         )
 
     }

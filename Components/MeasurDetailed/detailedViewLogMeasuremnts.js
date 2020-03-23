@@ -65,11 +65,29 @@ export default class LogMeasurementsDetailedView extends React.Component {
                     {/* Start Any One Fiel */}
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
                         <Text style={{ color: '#a6a6a6', fontSize: 12 }}>{this.props.userDetailData.shoulder}</Text>
-                        <Text style={{ color: '#a6a6a6', fontSize: 12, }}>{this.props.userDetailData.waist}</Text>
+                        <Text style={{ color: '#a6a6a6', fontSize: 12, }}>{this.props.userDetailData.waistAtNaval}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ color: '#a6a6a6', fontSize: 10 }}>Shoulder</Text>
-                        <Text style={{ color: '#a6a6a6', fontSize: 10 }}>Waist</Text>
+                        <Text style={{ color: '#a6a6a6', fontSize: 10 }}>Waist (At Naval)</Text>
+                    </View>
+                    {/* Start Hips and Calves */}
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
+                        <Text style={{ color: '#a6a6a6', fontSize: 12 }}>{this.props.userDetailData.calves}</Text>
+                        <Text style={{ color: '#a6a6a6', fontSize: 12, }}>{this.props.userDetailData.hips}</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <Text style={{ color: '#a6a6a6', fontSize: 10 }}>Calves</Text>
+                        <Text style={{ color: '#a6a6a6', fontSize: 10 }}>Hips</Text>
+                    </View>
+                    {/* Start  2 incches above naval and below */}
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
+                        <Text style={{ color: '#a6a6a6', fontSize: 12 }}>{this.props.userDetailData.below2Inches}</Text>
+                        <Text style={{ color: '#a6a6a6', fontSize: 12, }}>{this.props.userDetailData.above2Inches}</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <Text style={{ color: '#a6a6a6', fontSize: 10 }}>2 Inches Below Naval</Text>
+                        <Text style={{ color: '#a6a6a6', fontSize: 10 }}>2 Inches Above Naval</Text>
                     </View>
 
 

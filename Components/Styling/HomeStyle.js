@@ -109,6 +109,24 @@ cardFive:{
     // borderRadius:3,
     marginTop:12
 },
+bmiCard:{
+    height:140,
+    width:157,
+    backgroundColor:'#000000',
+    // borderWidth:2,
+    // borderColor:'black',
+    borderRadius:5,
+    marginTop:12,
+    marginLeft:2
+
+},
+bmiHeading:{
+    color:'#FFFFFF',
+    fontSize:20,
+    // fontFamily:"MontserratExtraBold",
+    marginLeft:14,
+    marginTop:20
+},
 goalSetCard:{
     height:140,
     width:152,

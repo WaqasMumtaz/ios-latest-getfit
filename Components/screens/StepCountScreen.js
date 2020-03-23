@@ -991,7 +991,7 @@ export default class StepCountScreen extends React.Component {
                         </View>
 
 
-                        {/* <View style={styles.toggelSwitch}>
+                        <View style={styles.toggelSwitch}>
                             <View>
                                 <Text style={{
                                     color: '#000',
@@ -1008,7 +1008,7 @@ export default class StepCountScreen extends React.Component {
                                 />
                             </View>
 
-                        </View> */}
+                        </View>
 
                         <TouchableOpacity
                             style={styles.stepCountContainer}

@@ -157,30 +157,34 @@ class Homescreen extends React.Component {
         }
       })
     }
-    let dataUser = await HttpUtilsFile.get('getweightlog');
-    console.log('dataUser getWeightLog >>', dataUser);
-    console.log('Current User Id >>', this.state.userId);
-    // let code = dataUser.code;
-    //         if (code == 200) {
-    //             let dataArr = [];
-    //             //console.log(dataUser.content)
-    //             let checkId = dataUser.content;
-    //             for (const i in checkId) {
-    //                 //console.log(checkId[i])
-    //                 let data = checkId[i];
-    //                 if (data.userId == this.state.userId) {
-    //                     dataArr = [...dataArr, data]
-    //                     this.setState({
-    //                         allDataUser: dataArr
-    //                     })
-    //                 }
-    //             }
+    let dataUser = await HttpUtils.get('getweightlog');
+    // console.log('dataUser getWeightLog >>', dataUser);
+    // console.log('Current User Id >>', this.state.userId);
+    let code = dataUser.code;
+            if (code == 200) {
+                let dataArr = [];
+                //console.log(dataUser.content)
+                let checkId = dataUser.content;
+                // console.log('User Content >>', checkId);
+                for (const i in checkId) {
+                    //console.log(checkId[i])
+                    let data = checkId[i];
+                    // console.log('User DAta >>', data);
+                    // console.log('Match User >>',data.userId == this.state.userId)
+                    if (data.userId == this.state.userId) {
+                      // console.log('Current User Successfully ');
+                      // console.log('Current User Weight >>',data.weight)
+                        // dataArr = [...dataArr, data]
+                        this.setState({
+                          userCurrentWeight: data.weight
+                        })
+                    }
+                }
 
-    //         }
-    //         else {
-    //             console.log('User Not Login')
-    //         }
-
+            }
+            else {
+                console.log('User Not Login')
+            }
   }
 
   // backScreen=()=>{
@@ -231,6 +235,10 @@ class Homescreen extends React.Component {
   else if (e == 'Macrocalculator'){
       navigate('Macrocalculator')
   }
+  else if (e == 'CalculateBMI'){
+    navigate('BMICalculator')
+
+  }
 
   }
 
@@ -257,6 +265,7 @@ class Homescreen extends React.Component {
     const { navigation } = this.props;
     this.focusListener = navigation.addListener('didFocus', (res) => {
       BackHandler.addEventListener("hardwareBackPress", this.onBack)
+      console.log('Running Successfully Add Listener Function')
       this.getUserData();
       this.getTodayOrYesterdayExcersice();
       this.setState({
@@ -305,6 +314,7 @@ class Homescreen extends React.Component {
   render() {
     const { todayData, yestertdayData, pedometerData, goalSteps, userCurrentWeight, currentUserBMI,fitnessGoal,stepsPercentage } = this.state;
     const { navigate } = this.props.navigation;
+    console.log('Current User Id >>', this.state.userId);
     //console.log('current steps home >>',stepsPercentage)
     return (
       // <HandleBack onBack={this.onBack}>
@@ -327,7 +337,7 @@ class Homescreen extends React.Component {
 
               </TouchableOpacity>
               <View style={styles.waitContainer}>
-                <Text style={styles.waitText}>{userCurrentWeight == '' ? 0 : userCurrentWeight} KG</Text>
+                <Text style={styles.waitText}>{userCurrentWeight == '' ? 0 : userCurrentWeight} </Text>
                 <Text style={styles.weightLabel}>current weight</Text>
                 <Text style={styles.bmiText}>{currentUserBMI == '' ? 0 : currentUserBMI}</Text>
                 <Text style={styles.weightLabel}>current BMI</Text>
@@ -402,6 +412,16 @@ class Homescreen extends React.Component {
                 fontSize: 12, marginTop: 20, marginLeft: 14 }}>View detailed report</Text>
                 <Image source={require('../icons/forward-arrow.png')} style={styles.lastArrow} />
               </TouchableOpacity>
+              <TouchableOpacity style={styles.bmiCard}
+               onPress={this.changeRout.bind(this, 'CalculateBMI')}>
+                <Text style={styles.bmiHeading}>
+                     Calculate {'\n'}BMI
+                </Text>
+                <View>
+                <Image source={require('../icons/forward-arrow.png')} style={styles.lastArrow} />
+                </View>
+              </TouchableOpacity>
+              <View style={{marginVertical:20}}></View>
             </View>
           </View>
         </ScrollView>
