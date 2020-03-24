@@ -14,7 +14,7 @@ import styles from '../Styling/ResetPasswordScreenStyle';
 //import TextInputs from '../textInputs/TextInputs'
 import CaloriesSetupBtn from '../buttons/setUpBtn';
 import HttpUtilsFile from '../Services/HttpUtils';
-// import OverlayLoader from '../Loader/OverlaySpinner';
+import OverlayLoader from '../Loader/OverlaySpinner';
 //console.log(HttpUtilsFile);
 const { height } = Dimensions.get('window');
 
@@ -196,7 +196,7 @@ class ResetpasswordScreen extends React.Component {
                                     this.emailHandleFunc(text),
                                     this.resetPasswordCheckValidate(text, 'email')
                                 }}
-                                placeholder="waqas@gmail.com"
+                                placeholder="email@gmail.com"
                                 placeholderTextColor="#A6A6A6"
                                 autoCapitalize="none"
                                 autoCorrect={false}

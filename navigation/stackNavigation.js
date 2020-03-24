@@ -3,6 +3,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import Login from '../Components/screens/Login';
 import Signup from '../Components/screens/SignUp';
 import ResetpasswordScreen from '../Components/screens/ResetPasswrd';
+import ConfirmResetPassword from '../Components/screens/CheckResetPasswrd';
 import BottomTabe from './tabNav';
 import Setupscreen1 from '../Components/screens/SetUpScreen1';
 import Setupscreen from '../Components/screens/SetUpScreen';
@@ -32,6 +33,9 @@ const MainNavigator = createStackNavigator({
     },
     ResetpasswordScreen: {
       screen: ResetpasswordScreen
+    },
+    ConfirmResetPassword:{
+         screen:ConfirmResetPassword
     },
     BottomTabe: {
         screen: BottomTabe,

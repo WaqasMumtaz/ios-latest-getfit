@@ -64,10 +64,10 @@ class Options extends React.Component {
                 <TouchableOpacity onPress={() => { navigate('Invoices') }}>
                   <Text style={styles.forText}>Invoices</Text>
                 </TouchableOpacity></View>
-              <View style={styles.itemsStyle}>
+              {/* <View style={styles.itemsStyle}>
                 <TouchableOpacity onPress={() => { navigate('ShowMeasurementsScreen') }}>
                   <Text style={styles.forText}>Log Measurements</Text>
-                </TouchableOpacity></View>
+                </TouchableOpacity></View> */}
               <View style={styles.itemsStyle}><TouchableOpacity onPress={() => { navigate('SettingScreen') }}><Text style={styles.forText}>Settings</Text></TouchableOpacity></View>
             </View>
 
