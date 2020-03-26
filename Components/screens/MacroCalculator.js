@@ -120,18 +120,18 @@ class Macrocalculator extends React.Component {
                 })
             }
         });
-        this.getMacro();
+        // this.getMacro();
 
     }
     //  componentDidMount(){
     //     this.macroGet();
     //  }   
-    getMacro = () => {
-        const { navigation } = this.props;
-        this.focusListener = navigation.addListener('didFocus', () => {
-            this.macroGet();
-        });
-    }
+    // getMacro = () => {
+    //     const { navigation } = this.props;
+    //     this.focusListener = navigation.addListener('didFocus', () => {
+    //         this.macroGet();
+    //     });
+    // }
 
     calulateMacro = async () => {
         const { dob, gender, height, heightInch, currentWeight, currentWeightUnit,
@@ -1034,29 +1034,7 @@ class Macrocalculator extends React.Component {
 
     }
 
-    macroGet = async () => {
-        const { userId } = this.state;
-        let userObj = {
-            userId: userId
-        }
-        const specificMacro = await HttpUtils.post('getmacros', userObj);
-        if (specificMacro.code == 200) {
-            this.setState({
-                macroArray: specificMacro.content
-            }, () => {
-                const userMacroData = this.state.macroArray;
-                for (var i in userMacroData) {
-                    this.setState({
-                        showCurrentMacro: true,
-                        currentCalories: userMacroData[i].calculteCalries,
-                        currentCarbohy: userMacroData[i].carbohydrates,
-                        currentProteins: userMacroData[i].proteins,
-                        currentMass: userMacroData[i].fatMass
-                    })
-                }
-            })
-        }
-    }
+   
 
     fitnessResultDataGetting = async () => {
         let obj = {
@@ -1177,7 +1155,7 @@ class Macrocalculator extends React.Component {
         const { dobValidation, genderValidation, heightValidation, currentWeightValidation, goalWeightValidation,
             heightUnitValidation, currentWeightUnitValidation, goalWeightUnitValidation, activityLevelValidation,
             male, female, moderate, sedentary, light, extreme, calculteCalries, fatMass, proteins, carbohydrates,
-            dob, date, currentCalories, currentCarbohy, currentProteins, currentMass, showCurrentMacro,
+            dob, date,
             impClick, metrilClick, unitValue, unitValidation, height, mild, extremeBtn, normal, desiredUnitValue, desiredUnitValidation,
             fitnessGoal, showDesiredBtn, fitnessValidation, lose, gain, maintain, currentDate
         } = this.state;
@@ -1196,49 +1174,7 @@ class Macrocalculator extends React.Component {
                             <Text style={styles.textStyle}>Enter your height and weight below to re-calculate
                         your daily macro limit </Text>
                         </View>
-                        {
-                            showCurrentMacro ?
-                                <View>
-                                    <Text style={styles.currentMacroText}>Your Current Macro *</Text>
-                                    <View style={styles.inputCaloriesContainer}>
-
-                                    <Text
-                                            style={styles.inputCaloriesStyleOne}
-                                        >
-                                            {currentCalories + ' Kcal calories'}
-                                        </Text>
-                                        <Text
-                                            // placeholder={"e.g 149 g\nCarbohydrates"} 
-                                            style={styles.inputCaloriesStyleTwo}
-                                        // value={carbohydrates + ' g Carbohyderates'}
-                                        >
-                                            {currentCarbohy + ' g Carbohyderates'}
-                                        </Text>
-                                        <Text
-                                            // placeholder={"e.g 107 g\Protein"} 
-                                            style={styles.inputCaloriesStyleThree}
-                                        // value={proteins + ' g Proteins'} 
-                                        >
-                                            {currentProteins + ' g Proteins'}
-                                        </Text>
-                                        <Text
-                                            //  placeholder={"e.g 51 g\nFat"} 
-                                            style={styles.inputCaloriesStyleFour}
-                                        // value={fatMass + ' g Fat'}
-                                        >
-                                            {currentMass + ' g Fat'}
-                                        </Text>
-{/*                                         
-                                        <TextInput placeholder={"e.g 1640 Kcl\nCalories"} style={styles.inputCaloriesStyleOne} value={currentCalories + ' Kcal calories'} />
-                                        <TextInput placeholder={"e.g 149 g\nCarbohydrates"} style={styles.inputCaloriesStyleTwo} value={currentCarbohy + ' g Carbohyderates'} />
-                                        <TextInput placeholder={"e.g 107 g\Protein"} style={styles.inputCaloriesStyleThree} value={currentProteins + ' g Proteins'} />
-                                        <TextInput placeholder={"e.g 51 g\nFat"} style={styles.inputCaloriesStyleFour} value={currentMass + ' g Fat'} /> */}
-
-                                    </View>
-                                </View>
-                                :
-                                null
-                        }
+                        
                         <View style={{ marginTop: 10 }}>
                             <Text style={styles.unitPara}>Please choose your prefer to unit</Text>
                         </View>

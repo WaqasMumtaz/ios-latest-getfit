@@ -171,13 +171,25 @@ const styles =StyleSheet.create({
          
    },
    exerciseResultCard:{
-       borderBottomWidth:0.5,
-       borderColor:'#a6a6a6',
-       height:60,
-       marginBottom:12,
-       marginLeft:10,
-       width:'90%',
-       marginVertical:10
+    borderBottomWidth:0.5,
+    borderColor:'#a6a6a6',
+    height:60,
+    marginBottom:12,
+ //    marginLeft:10,
+    width:'100%',
+    marginVertical:10,
+    paddingHorizontal:3,
+    // backgroundColor:'white'
+   },
+   exerciseResultCard2:{
+    borderColor:'#a6a6a6',
+    height:60,
+    marginBottom:12,
+ //    marginLeft:10,
+    width:'100%',
+    marginVertical:10,
+    paddingHorizontal:3,
+    // backgroundColor:'white'
    },
    resultHeading:{
        color:'#a6a6a6',
@@ -187,10 +199,11 @@ const styles =StyleSheet.create({
    timeShowContainer:{
         flexDirection:'row',
        borderRightWidth:0.5,
+       paddingLeft:4,
        borderColor:'#a6a6a6',
        width:70,
-       height:25,
-    //    marginTop:3
+       height:30,
+       marginTop:4
    },
    timeShow:{
     color:'#a6a6a6',
@@ -209,7 +222,10 @@ const styles =StyleSheet.create({
    },
    dateAndMonth:{
     flexDirection:'row',
-    borderLeftWidth:0.5,
+    // borderLeftWidth:0.5,
+    marginRight:4,
+    marginTop:4,
+    paddingRight:5,
     borderColor:'#a6a6a6',
     width:65,
     height:30,

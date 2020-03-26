@@ -15,7 +15,7 @@ class Homescreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      homeScreen:false,
+      homeScreen: false,
       todayData: '',
       yestertdayData: '',
       pedometerData: '',
@@ -23,12 +23,18 @@ class Homescreen extends React.Component {
       goalSteps: '',
       userAllData: [],
       userCurrentWeight: '',
+      measurementsWeight:'',
       excerciseArry: [],
       bmiData: [],
       currentUserBMI: '',
-      fitnessGoal:'',
-      stepsPercentage:''
-
+      fitnessGoal: '',
+      stepsPercentage: '',
+      macroArray: [],
+      showCurrentMacro: false,
+      currentCalories: '',
+      currentCarbohy: '',
+      currentProteins: '',
+      currentMass: ''
     }
     //console.log('constructor method run here')
   }
@@ -55,16 +61,16 @@ class Homescreen extends React.Component {
 
         this.setState({
           userId: dataFromLocalStorage._id,
-          
+
         })
       }
     });
 
 
-    
+
   }
 
-  
+
   getTodayOrYesterdayExcersice = async () => {
     //console.log('getTodayOrYesterdayExcersice')
     const { userId } = this.state;
@@ -117,15 +123,15 @@ class Homescreen extends React.Component {
 
   getUserData = async () => {
     this.setState({
-      homeScreen:true
+      homeScreen: true
     })
-    
+
     let obj = {
       userId: this.state.userId
     }
     //console.log(obj)
     let retrieveData = await HttpUtils.post('getgoal', obj);
-   // console.log('retrieve data >>>', retrieveData)
+    // console.log('retrieve data >>>', retrieveData)
     if (retrieveData.code == 200) {
       this.setState({
         userAllData: retrieveData.content
@@ -136,7 +142,7 @@ class Homescreen extends React.Component {
           //console.log(userData[i].currentWeight)
           this.setState({
             userCurrentWeight: userData[i].currentWeight,
-            goalSteps:userData[i].goalSteps,
+            goalSteps: userData[i].goalSteps,
           })
         }
       })
@@ -161,30 +167,30 @@ class Homescreen extends React.Component {
     // console.log('dataUser getWeightLog >>', dataUser);
     // console.log('Current User Id >>', this.state.userId);
     let code = dataUser.code;
-            if (code == 200) {
-                let dataArr = [];
-                //console.log(dataUser.content)
-                let checkId = dataUser.content;
-                // console.log('User Content >>', checkId);
-                for (const i in checkId) {
-                    //console.log(checkId[i])
-                    let data = checkId[i];
-                    // console.log('User DAta >>', data);
-                    // console.log('Match User >>',data.userId == this.state.userId)
-                    if (data.userId == this.state.userId) {
-                      // console.log('Current User Successfully ');
-                      // console.log('Current User Weight >>',data.weight)
-                        // dataArr = [...dataArr, data]
-                        this.setState({
-                          userCurrentWeight: data.weight
-                        })
-                    }
-                }
+    if (code == 200) {
+      let dataArr = [];
+      //console.log(dataUser.content)
+      let checkId = dataUser.content;
+      // console.log('User Content >>', checkId);
+      for (const i in checkId) {
+        //console.log(checkId[i])
+        let data = checkId[i];
+        // console.log('User DAta >>', data);
+        // console.log('Match User >>',data.userId == this.state.userId)
+        if (data.userId == this.state.userId) {
+          // console.log('Current User Successfully ');
+          // console.log('Current User Weight >>',data.weight)
+          // dataArr = [...dataArr, data]
+          this.setState({
+            measurementsWeight: data.weight
+          })
+        }
+      }
 
-            }
-            else {
-                console.log('User Not Login')
-            }
+    }
+    else {
+      console.log('User Not Login')
+    }
   }
 
   // backScreen=()=>{
@@ -197,14 +203,14 @@ class Homescreen extends React.Component {
     if (data != undefined) {
       const multiplySteps = data / Number(this.state.goalSteps);
       //console.log('multiply >>',multiplySteps);
-      const divideSteps = multiplySteps*100;
+      const divideSteps = multiplySteps * 100;
       //console.log('divided >>',divideSteps )
       const roundedValue = Math.round(divideSteps);
       //console.log('percentage steps >>',roundedValue)
       this.setState({
-          stepsPercentage:roundedValue,
-          pedometerData: data
-      })    
+        stepsPercentage: roundedValue,
+        pedometerData: data
+      })
 
       // this.setState({
       //   pedometerData: data,
@@ -213,82 +219,89 @@ class Homescreen extends React.Component {
 
   }
   changeRout(e) {
-    const {userCurrentWeight , goalSteps,fitnessGoal}=this.state;
+    const { userCurrentWeight, goalSteps, fitnessGoal } = this.state;
     const { navigate } = this.props.navigation;
     if (e == 'logexercise') {
       navigate('Exerciselog')
     }
     else if (e == 'stepcount') {
-      if(userCurrentWeight != '' && goalSteps != ''){
+      if (userCurrentWeight != '' && goalSteps != '') {
         navigate('StepCountScreen', {
           'pedometerFun': (data) => this.pedometerFun(data),
           currentWeight: this.state.userCurrentWeight,
-          goalSteps:this.state.goalSteps,
-          pedometerData:this.state.pedometerData
+          goalSteps: this.state.goalSteps,
+          pedometerData: this.state.pedometerData
         })
       }
       else {
         Alert.alert('Please set goal')
       }
-      
+
     }
-  else if (e == 'Macrocalculator'){
+    else if (e == 'Macrocalculator') {
       navigate('Macrocalculator')
-  }
-  else if (e == 'CalculateBMI'){
-    navigate('BMICalculator')
-
-  }
-
-  }
-
-  getBmiData = async () => {
-    const { userId } = this.state;
-    const userBMI = {
-      userId: userId
     }
-    //console.log('user id >>', userBMI)
-    const userBmiApi = await HttpUtils.post('getbmi', userBMI);
-    //console.log('current user bmi >>>', userBmiApi);
-    // AsyncStorage.getItem("bmiData").then((value)=>{
-    //   if(value){
-    //     console.log('bmi result >>',JSON.parse(value))
-    //     this.setState({
-    //       bmiData:value
-    //     })
-    //   }
-    // })
+    else if (e == 'CalculateBMI') {
+      navigate('BMICalculator')
+
+    }
+
   }
+
 
 
   getDaysData = () => {
     const { navigation } = this.props;
     this.focusListener = navigation.addListener('didFocus', (res) => {
-      BackHandler.addEventListener("hardwareBackPress", this.onBack)
-      console.log('Running Successfully Add Listener Function')
+      // BackHandler.addEventListener("hardwareBackPress", this.onBack)
+      // console.log('Running Successfully Add Listener Function')
       this.getUserData();
+      this.macroGet();
       this.getTodayOrYesterdayExcersice();
       this.setState({
-        homeScreen:true
+        homeScreen: true
       })
-      //this.getBmiData();
     });
   }
-  componentDidMount(){
-         BackHandler.addEventListener('hardwareBackPress',this.handleBackButton);
-         this.willBlur = this.props.navigation.addListener("willBlur", payload =>
-         BackHandler.removeEventListener("hardwareBackPress", this.onBack),
-       );
-  }
-  componentWillUnmount() {
-    this.didFocus.remove();
-    this.willBlur.remove();
-    BackHandler.removeEventListener("hardwareBackPress", this.onBack);
-  }
+  // componentDidMount(){
+  //        BackHandler.addEventListener('hardwareBackPress',this.handleBackButton);
+  //        this.willBlur = this.props.navigation.addListener("willBlur", payload =>
+  //        BackHandler.removeEventListener("hardwareBackPress", this.onBack),
+  //      );
+  // }
+  // componentWillUnmount() {
+  //   this.didFocus.remove();
+  //   this.willBlur.remove();
+  //   BackHandler.removeEventListener("hardwareBackPress", this.onBack);
+  // }
 
+  // Get specific user current macros
+  macroGet = async () => {
+    const { userId } = this.state;
+    let userObj = {
+      userId: userId
+    }
+    const specificMacro = await HttpUtils.post('getmacros', userObj);
+    if (specificMacro.code == 200) {
+      this.setState({
+        macroArray: specificMacro.content
+      }, () => {
+        const userMacroData = this.state.macroArray;
+        for (var i in userMacroData) {
+          this.setState({
+            showCurrentMacro: true,
+            currentCalories: userMacroData[i].calculteCalries,
+            currentCarbohy: userMacroData[i].carbohydrates,
+            currentProteins: userMacroData[i].proteins,
+            currentMass: userMacroData[i].fatMass
+          })
+        }
+      })
+    }
+  }
 
   handleBackButton = async () => {
-   // console.log('pressed back button')
+    // console.log('pressed back button')
     const { navigate } = this.props.navigation;
     const getData = await AsyncStorage.getItem("currentUser");
     // const parsForm = JSON.parse(getData)
@@ -312,7 +325,11 @@ class Homescreen extends React.Component {
 
 
   render() {
-    const { todayData, yestertdayData, pedometerData, goalSteps, userCurrentWeight, currentUserBMI,fitnessGoal,stepsPercentage } = this.state;
+    const { todayData, yestertdayData, pedometerData,
+      currentCalories, currentCarbohy, currentProteins,
+      currentMass, showCurrentMacro,
+      goalSteps, userCurrentWeight,measurementsWeight, currentUserBMI,
+      fitnessGoal, stepsPercentage } = this.state;
     const { navigate } = this.props.navigation;
     console.log('Current User Id >>', this.state.userId);
     //console.log('current steps home >>',stepsPercentage)
@@ -329,6 +346,48 @@ class Homescreen extends React.Component {
           <TouchableOpacity style={{ marginLeft: 20 }}><Image source={require('../icons/right.png')} style={styles.forImgs} /></TouchableOpacity>
         </View> */}
         <ScrollView style={{ flex: 1, backgroundColor: 'white', height: height }} contentContainerStyle={{ flexGrow: 1 }}  >
+
+          {/* Show current user macros */}
+
+          {
+            showCurrentMacro ?
+              <View>
+                <Text style={styles.currentMacroText}>Your Current Macro *</Text>
+                <View style={styles.inputCaloriesContainer}>
+
+                  <Text
+                    style={styles.inputCaloriesStyleOne}
+                  >
+                    {currentCalories + ' Kcal calories'}
+                  </Text>
+                  <Text
+                    // placeholder={"e.g 149 g\nCarbohydrates"} 
+                    style={styles.inputCaloriesStyleTwo}
+                  // value={carbohydrates + ' g Carbohyderates'}
+                  >
+                    {currentCarbohy + ' g Carbohyderates'}
+                  </Text>
+                  <Text
+                    // placeholder={"e.g 107 g\Protein"} 
+                    style={styles.inputCaloriesStyleThree}
+                  // value={proteins + ' g Proteins'} 
+                  >
+                    {currentProteins + ' g Proteins'}
+                  </Text>
+                  <Text
+                    //  placeholder={"e.g 51 g\nFat"} 
+                    style={styles.inputCaloriesStyleFour}
+                  // value={fatMass + ' g Fat'}
+                  >
+                    {currentMass + ' g Fat'}
+                  </Text>
+                </View>
+              </View>
+              :
+              null
+          }
+
+
           <View style={styles.cardsContainer}>
             <View style={styles.childContainerOne}>
               <TouchableOpacity style={styles.goalSetCard} TouchableOpacity={0.6} onPress={() => navigate('Setupscreen1')}>
@@ -341,11 +400,13 @@ class Homescreen extends React.Component {
                 <Text style={styles.weightLabel}>current weight</Text>
                 <Text style={styles.bmiText}>{currentUserBMI == '' ? 0 : currentUserBMI}</Text>
                 <Text style={styles.weightLabel}>current BMI</Text>
+                <Text style={styles.measurementWeight}>{measurementsWeight == '' ? 0 : measurementsWeight}</Text>
+                <Text style={styles.weightLabel}>measurements weight</Text>
               </View>
               <TouchableOpacity style={styles.cardOne} onPress={() => { navigate('AddExercise') }}>
                 <Image source={require('../icons/log-exer.png')} style={styles.imgsStyle} />
               </TouchableOpacity>
-              <TouchableOpacity style={styles.cardThree} onPress={() => navigate('LogMeasurementsScreen')}>
+              <TouchableOpacity style={styles.cardThree} onPress={() => navigate('ShowMeasurementsScreen')}>
                 <Image source={require('../icons/log-weight.png')} style={styles.imgsStyle} />
               </TouchableOpacity>
               <TouchableOpacity style={styles.cardFive} onPress={this.changeRout.bind(this, 'Macrocalculator')}>
@@ -370,20 +431,25 @@ class Homescreen extends React.Component {
                   />
                 </View>
                 <View style={styles.resultContainer}>
-                  <Text style={{ color: '#FF6200', 
-                  // fontFamily: 'MontserratLight' 
+                  <Text style={{
+                    color: '#FF6200',
+                    // fontFamily: 'MontserratLight' 
                   }}>{pedometerData == '' ? 0 : pedometerData}</Text>
-                  <Text style={{ color: '#a6a6a6', 
-                  // fontFamily: 'MontserratLight' 
+                  <Text style={{
+                    color: '#a6a6a6',
+                    // fontFamily: 'MontserratLight' 
                   }}> / {goalSteps == '' || goalSteps == undefined ? 0 : goalSteps}</Text>
                 </View>
-                <Text style={{ color: '#a6a6a6', marginLeft: 14, 
-                // fontFamily: 'MontserratLight'
-                 }}>steps</Text>
+                <Text style={{
+                  color: '#a6a6a6', marginLeft: 14,
+                  // fontFamily: 'MontserratLight'
+                }}>steps</Text>
                 <View style={styles.detailReport}>
-                  <Text style={{ color: '#FFFFFF', 
-                  // fontFamily: 'MontserratLight', 
-                  fontSize: 12, marginTop: 33 }}>View detailed report</Text>
+                  <Text style={{
+                    color: '#FFFFFF',
+                    // fontFamily: 'MontserratLight', 
+                    fontSize: 12, marginTop: 33
+                  }}>View detailed report</Text>
                   <Image source={require('../icons/forward-arrow.png')} style={styles.arrowIcon} />
                 </View>
               </TouchableOpacity>
@@ -391,37 +457,44 @@ class Homescreen extends React.Component {
                 onPress={this.changeRout.bind(this, 'logexercise')}
               >
                 <Text style={styles.cardFourTextStyle}>{todayData != '' ? `Today's ${'\n'} exercise` : yestertdayData != '' ? `Yesterday's${'\n'} exercise` : `No ${'\n'}exercise`}</Text>
-                <Text style={{ color: '#a6a6a6', 
-                // fontFamily: 'MontserratLight', 
-                marginTop: 20, marginLeft: 14 }}>
+                <Text style={{
+                  color: '#a6a6a6',
+                  // fontFamily: 'MontserratLight', 
+                  marginTop: 20, marginLeft: 14
+                }}>
                   {todayData != '' ? `${todayData.exerciseName} ${'\n'}exercise` : yestertdayData != '' ? `${yestertdayData.exerciseName} ${'\n'}exercise` : 'No Record Found'}
                 </Text>
                 <View style={{ borderBottomColor: '#a6a6a6', borderBottomWidth: 1, marginHorizontal: 14, marginTop: 20 }}></View>
-                <Text style={{ color: '#FF6200', 
-                // fontFamily: 'MontserratLight', 
-                marginLeft: 14, marginTop: 10 }}>
+                <Text style={{
+                  color: '#FF6200',
+                  // fontFamily: 'MontserratLight', 
+                  marginLeft: 14, marginTop: 10
+                }}>
                   {todayData != '' ? todayData.exerciseAmount : yestertdayData != '' ? yestertdayData.exerciseAmount : 'No Record Found'}
                 </Text>
-                <Text style={{ color: '#a6a6a6', marginLeft: 14, 
-                // fontFamily: 'MontserratLight' 
+                <Text style={{
+                  color: '#a6a6a6', marginLeft: 14,
+                  // fontFamily: 'MontserratLight' 
                 }}>
                   {todayData != '' ? todayData.exerciseUnit : yestertdayData != '' ? yestertdayData.exerciseUnit : 'No Record Found'}
                 </Text>
-                <Text style={{ color: '#FFFFFF', 
-                // fontFamily: 'MontserratLight', 
-                fontSize: 12, marginTop: 20, marginLeft: 14 }}>View detailed report</Text>
+                <Text style={{
+                  color: '#FFFFFF',
+                  // fontFamily: 'MontserratLight', 
+                  fontSize: 12, marginTop: 20, marginLeft: 14
+                }}>View detailed report</Text>
                 <Image source={require('../icons/forward-arrow.png')} style={styles.lastArrow} />
               </TouchableOpacity>
               <TouchableOpacity style={styles.bmiCard}
-               onPress={this.changeRout.bind(this, 'CalculateBMI')}>
+                onPress={this.changeRout.bind(this, 'CalculateBMI')}>
                 <Text style={styles.bmiHeading}>
-                     Calculate {'\n'}BMI
+                  Calculate {'\n'}BMI
                 </Text>
                 <View>
-                <Image source={require('../icons/forward-arrow.png')} style={styles.lastArrow} />
+                  <Image source={require('../icons/forward-arrow.png')} style={styles.lastArrow} />
                 </View>
               </TouchableOpacity>
-              <View style={{marginVertical:20}}></View>
+              <View style={{ marginVertical: 20 }}></View>
             </View>
           </View>
         </ScrollView>

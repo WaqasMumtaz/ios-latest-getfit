@@ -1052,7 +1052,7 @@ export default class StepCountScreen extends React.Component {
                                 <Text style={{ borderBottomWidth: 0.5, borderColor: '#FFFFFF', opacity: 0.3, marginRight: 15 }}></Text>
                                 <Text style={{ color: '#a6a6a6', fontSize: 11, marginTop: 10, marginRight: 50 }}>{hour_Counter}h  {minutes_Counter}m</Text>
                                 <Text style={{ color: '#a6a6a6', fontSize: 11, marginTop: 4, marginRight: 50 }}>
-                                    {this.state.startDisable == false ? 'No Active' : 'Active me'}
+                                    {this.state.startDisable == false ? 'Tracker Unactivate' : 'Tracker Activate'}
                                 </Text>
                                 <Text style={{ marginTop: 4, borderBottomWidth: 0.5, borderColor: '#FFFFFF', opacity: 0.3, marginRight: 15 }}></Text>
                                 <Text style={{ color: '#a6a6a6', fontSize: 11, marginTop: 5, marginRight: 50 }}>{currentCalories == '' ? 0 : Number(currentCalories)}</Text>

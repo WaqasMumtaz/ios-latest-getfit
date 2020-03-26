@@ -126,6 +126,16 @@ const styles =StyleSheet.create({
         
 
     },
+    inputCaloriesContainer:{
+        flex:1,
+        width: '100%', 
+        height: 140, 
+        marginTop: 5, 
+        borderRadius: 3, 
+        flexDirection: 'row',
+        flexWrap:'wrap', 
+        backgroundColor: '#e5e5e5'
+    },
     inputCaloriesStyleOne:{
         height:65,
         //borderWidth:2,
@@ -135,7 +145,7 @@ const styles =StyleSheet.create({
         marginTop:12,
         borderColor:'gray',
         paddingBottom:20
-
+    
     },
     inputCaloriesStyleTwo:{
         height:65,
@@ -147,7 +157,7 @@ const styles =StyleSheet.create({
         marginTop:12,
         borderColor:'gray',
         paddingBottom:20
-
+    
     },
     inputCaloriesStyleThree:{
         marginTop:8,
@@ -156,7 +166,7 @@ const styles =StyleSheet.create({
         width:'45%',
         marginLeft:8,
         paddingBottom:20
-
+    
     },
     inputCaloriesStyleFour:{
         marginTop:8,
@@ -165,8 +175,9 @@ const styles =StyleSheet.create({
         width:'45%',
         marginLeft:8,
         paddingBottom:20
-
+    
     },
+
     caloriesBtnStyle:{
         flex:2,
         height:40,
@@ -304,16 +315,7 @@ const styles =StyleSheet.create({
         color: '#4f4f4f' ,
         // fontFamily: 'MontserratLight',
     },
-    inputCaloriesContainer:{
-        flex:1,
-        width: '100%', 
-        height: 140, 
-        marginTop: 5, 
-        borderRadius: 3, 
-        flexDirection: 'row',
-        flexWrap:'wrap', 
-        backgroundColor: '#e5e5e5'
-    },
+    
     lastParaContainer:{
         flex:1,
         marginTop:10
@@ -421,11 +423,6 @@ const styles =StyleSheet.create({
         //backgroundColor:'blue'
          justifyContent:'center',
          marginTop:10
-    },
-    currentMacroText:{
-        color:'#000000',
-        marginTop:10,
-        
     },
     unitPara:{
         color:'#4f4f4f',

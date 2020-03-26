@@ -27,7 +27,7 @@ const styles =StyleSheet.create({
     headingStyle:{
         fontSize:20,
         color:'black',
-        // fontFamily: "MontserratMedium",
+        // fontFamily: "MontserratExtraBold",
     },
     arrowContainer:{
         flex:1,
@@ -63,6 +63,18 @@ const styles =StyleSheet.create({
         borderTopLeftRadius:3,
         paddingLeft:10
         
+    },
+    justTextStyle:{
+        width:'100%',
+        // fontFamily: 'MontserratLight',
+        color: '#666666',
+        height:40,
+        //borderRadius:3,
+        backgroundColor:'#e5e5e5',
+        borderBottomLeftRadius:3,
+        borderTopLeftRadius:3,
+        paddingLeft:10,
+        paddingVertical:10
     },
     weightListsContainer:{
         flex:14,
@@ -143,6 +155,15 @@ const styles =StyleSheet.create({
     labelText:{
         // fontFamily:'MontserratLight',
         color:'#4f4f4f',
+    },
+    disableBtn:{
+        flex:2,
+        height:40,
+        justifyContent:'center',
+        backgroundColor: '#FF6200',
+        alignItems:'center',
+        borderRadius:5,
+        opacity:0.3
     }
 
 })   

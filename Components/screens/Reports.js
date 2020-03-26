@@ -432,9 +432,11 @@ class Reportscreen extends React.Component {
     // this.setState({
     //   stepsPercentage: roundedValue
     // })
+    let lastIndex = dataExcersices.lastIndexOf();
+    // console.log('Last Inde')
     let weeklyExcersice = dataExcersices && dataExcersices.map((elem, key) => {
       return (
-        <View style={styles.exerciseResultCard}>
+        <View style={[lastIndex == key ? styles.exerciseResultCard2 : styles.exerciseResultCard]}>
           <Text style={styles.resultHeading}>
             {elem.exerciseName}
           </Text>
@@ -446,7 +448,7 @@ class Reportscreen extends React.Component {
             </View>
             <View style={styles.dateAndMonth}>
               <Text maxLength={3} style={styles.dateAndMonthShow}>
-                {elem.monthName}
+                {elem.monthName.substring(0,3)}
               </Text>
               <Text style={styles.dateNumber}>
                 {elem.dayOfMonth}

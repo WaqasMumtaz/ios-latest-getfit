@@ -36,9 +36,69 @@ forImgs:{
     height:15,
     width:15,
 },
+// start here current macro styling
+currentMacroText:{
+    color:'#000000',
+    marginTop:10,
+    
+},
+inputCaloriesContainer:{
+    flex:1,
+    width: '100%', 
+    height: 140, 
+    marginTop: 5, 
+    borderRadius: 3, 
+    flexDirection: 'row',
+    flexWrap:'wrap', 
+    backgroundColor: '#e5e5e5'
+},
+inputCaloriesStyleOne:{
+    height:65,
+    //borderWidth:2,
+    width:'40%',
+    borderBottomWidth:1,
+    marginLeft:8,
+    marginTop:12,
+    borderColor:'gray',
+    paddingBottom:20
+
+},
+inputCaloriesStyleTwo:{
+    height:65,
+    //borderWidth:2,
+    width:'50%',
+    marginLeft:12,
+    borderBottomWidth:1,
+    marginLeft:20,
+    marginTop:12,
+    borderColor:'gray',
+    paddingBottom:20
+
+},
+inputCaloriesStyleThree:{
+    marginTop:8,
+    height:65,
+    borderWidth:0,
+    width:'45%',
+    marginLeft:8,
+    paddingBottom:20
+
+},
+inputCaloriesStyleFour:{
+    marginTop:8,
+    height:65,
+    borderWidth:0,
+    width:'45%',
+    marginLeft:8,
+    paddingBottom:20
+
+},
+// end current macro styling
+
 cardsContainer:{
     flex:1,
     flexDirection:'row',
+    marginTop:15,
     //backgroundColor:'green',
     //width:'47%'
     //  flexWrap:'wrap',
@@ -69,7 +129,7 @@ cardTwo:{
     //borderColor:'white',
     borderRadius:5,
     backgroundColor:'#000000',
-    marginLeft:2
+    marginLeft:27
 },
 cardTwoTextStyle:{
     color:'#FFFFFF',
@@ -93,7 +153,7 @@ cardFour:{
     backgroundColor:'black',
     borderRadius:5,
     marginTop:15,
-    marginLeft:2
+    marginLeft:27
 },
 cardFourTextStyle:{
     color:'#FFFFFF',
@@ -117,7 +177,7 @@ bmiCard:{
     // borderColor:'black',
     borderRadius:5,
     marginTop:12,
-    marginLeft:2
+    marginLeft:27
 
 },
 bmiHeading:{
@@ -200,8 +260,12 @@ bmiText:{
     color: '#FF6200',
     // fontFamily: 'MontserratMedium',
     marginTop:5
+},
+measurementWeight:{
+    color: '#FF6200',
+    // fontFamily: 'MontserratMedium',
+    marginTop:6
 }
-
 })
 
 export default styles; 
