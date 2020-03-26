@@ -52,7 +52,9 @@ class BMICalculator extends React.Component {
             isLoading: false,
             position: 'top',
             style: {},
-            toast: false
+            toast: false,
+            weightStatus: '',
+            div: false
         }
     }
     componentDidMount() {
@@ -176,6 +178,39 @@ class BMICalculator extends React.Component {
             let bmiVal = Math.round(bmiValue.toString());
             bmiData.bmi = bmiVal;
             console.log('bmiValue >>>', bmiVal)
+            if (bmiVal < 19) {
+                //  console.log('Underweight');
+                this.setState({
+                    weightStatus: 'Underweight',
+                    div: true
+                })
+            }
+            else if (bmiVal == 19 && bmiVal <= 25) {
+                // console.log('Normal weight ');
+                this.setState({
+                    weightStatus: 'Normal weight',
+                    div: true
+
+                })
+
+            }
+            else if (bmiVal == 25 && bmiVal <= 30) {
+                console.log('Overweight');
+                this.setState({
+                    weightStatus: 'Overweight',
+                    div: true
+
+                })
+
+            }
+            else if (bmiVal == 30 || bmiVal > 30) {
+                // console.log('Obesity');
+                this.setState({
+                    weightStatus: 'Obesity',
+                    div: true
+                })
+
+            }
 
             this.setState({
                 bmi: bmiVal,
@@ -203,6 +238,39 @@ class BMICalculator extends React.Component {
             let bmiVal = Math.round(bmiValue.toString());
             bmiData.bmi = bmiVal;
             console.log('bmiValue >>>', bmiVal)
+            if (bmiVal < 19) {
+                //  console.log('Underweight');
+                this.setState({
+                    weightStatus: 'Underweight',
+                    div: true
+                })
+            }
+            else if (bmiVal == 19 && bmiVal <= 25) {
+                // console.log('Normal weight ');
+                this.setState({
+                    weightStatus: 'Normal weight',
+                    div: true
+
+                })
+
+            }
+            else if (bmiVal == 25 && bmiVal <= 30) {
+                console.log('Overweight');
+                this.setState({
+                    weightStatus: 'Overweight',
+                    div: true
+
+                })
+
+            }
+            else if (bmiVal == 30 || bmiVal > 30) {
+                // console.log('Obesity');
+                this.setState({
+                    weightStatus: 'Obesity',
+                    div: true
+                })
+
+            }
             this.setState({
                 bmi: bmiVal,
                 mgs: false,
@@ -257,7 +325,9 @@ class BMICalculator extends React.Component {
             weightUnitValidation,
             isLoading,
             toast,
-            bmi
+            bmi,
+            weightStatus,
+            div
         } = this.state;
         console.log('state bmi >>>', Number(bmi))
         return (
@@ -417,6 +487,19 @@ class BMICalculator extends React.Component {
                             {bmi}
                         </Text>
                     </View>
+                    {
+                        div ?
+                            <View>
+                                <Text style={styles.bmiTextStyle}>Weight Status</Text>
+                                <View style={styles.weightStatusStyle}>
+                                    <Text style={styles.inputStyle}>
+                                        {weightStatus}
+                                    </Text>
+                                </View>
+                            </View>
+                            :
+                            null
+                    }
                     {isLoading ? <OverlayLoader /> : null}
                     <View style={styles.buttonContainer}>
                         {/* {toast ? <ToastComponent pressFunc={this.toastFunction.bind(this, 'Success',this.state.position , DURATION.LENGTH_LONG,true)}/> : null} */}

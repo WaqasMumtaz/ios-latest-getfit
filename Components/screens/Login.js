@@ -195,6 +195,10 @@ getTokenPermission=()=>{
             else if (dataUser.assignTrainny) {
               if (dataUser.assignTrainny.length > 0) {
                 let trainyData = dataUser.assignTrainny;
+                const uniq = new Set(trainyData.map(e => JSON.stringify(e)));
+                // console.log('Uniq >>', uniq)
+                const res = Array.from(uniq).map(e => JSON.parse(e));
+                // console.log('Uniq Array >>', res);
                 let traineeDataArr = [];
                 for (var i in trainyData) {
                   trainyData[i].type = 'Trainee'

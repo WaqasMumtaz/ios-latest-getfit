@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
          opacity:0.6
     },
     textInputStyleParent: {
-        flex: 5,
+        flex: 1,
         height: 40,
         textAlign: 'center',
         backgroundColor: '#e5e5e5',
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     },
     bmiInputContainer: {
         flexDirection: 'row',
-        flex: 6,
+        flex: 1,
         //backgroundColor:'white',
         //marginTop: 5
     },
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
         // opacity:0.6
     },
     textInputContainer: {
-        flex: 2,
+        flex: 5,
         justifyContent: 'center',
         flexDirection: 'row',
         marginVertical: 5,
@@ -238,9 +238,9 @@ const styles = StyleSheet.create({
           justifyContent:'space-between'
       },
       buttonContainer:{
-          flex:5,
+          flex:3,
           marginBottom:12,
-          marginTop:12
+          marginTop:30
       },
       caloriesBtnStyle:{
         flex:2,
