@@ -166,7 +166,7 @@ export default class StepCountScreen extends React.Component {
                             .then((res) => {
                                 console.log('authorized >>>', res)
                                 rnHealthKit.observeSteps((res) => {
-                                     console.log('google fit api >>',res)
+                                    console.log('google fit api >>', res)
                                     this.setState({ pedometerData: res.steps })
                                 })
 
@@ -352,23 +352,23 @@ export default class StepCountScreen extends React.Component {
     }
 
     sendDataPedometer = async () => {
-            const currentDayOfWeek = new Date().getDay() + 1;
-            const currentDate = new Date().getDate();
-            let currentMonth = new Date().getMonth() + 1;
-            const currentYear = new Date().getFullYear();
-            console.log('current week >>', currentDayOfWeek);
-            console.log('currentDate >>', currentDate);
-            console.log('currentMont >>', currentMonth);
-            console.log('currentYear >>', currentYear);
+        const currentDayOfWeek = new Date().getDay() + 1;
+        const currentDate = new Date().getDate();
+        let currentMonth = new Date().getMonth() + 1;
+        const currentYear = new Date().getFullYear();
+        console.log('current week >>', currentDayOfWeek);
+        console.log('currentDate >>', currentDate);
+        console.log('currentMont >>', currentMonth);
+        console.log('currentYear >>', currentYear);
         const dataPost = {
             userId: this.state.currentUserId,
             time: this.state.curTime,
             date: currentDate,
             stepCount: this.state.pedometerData,
             dailGoal: this.state.goalSteps,
-            dayOfWeek:currentDayOfWeek,
-            month:currentMonth,
-            year:currentYear
+            dayOfWeek: currentDayOfWeek,
+            month: currentMonth,
+            year: currentYear
         }
         try {
             let postedData = await HttpUtilsFile.post('pedometer', dataPost)
@@ -394,7 +394,7 @@ export default class StepCountScreen extends React.Component {
 
         //console.log('watch time >>', this.state.timeWatch)
         // start tracking from current time
-        
+
 
         //Sensor Manager For Stepcount
 
@@ -1044,7 +1044,7 @@ export default class StepCountScreen extends React.Component {
                                 </View>
                                 <Text style={{
                                     color: '#a6a6a6',
-                
+
                                     fontSize: 11,
                                     marginTop: 4,
                                     marginRight: 50
@@ -1065,11 +1065,18 @@ export default class StepCountScreen extends React.Component {
                         <Text style={{ color: 'white' }}>Graph Stepcount</Text>
                     </View> */}
                         {/* <Linechart/> */}
+                        <View style={{marginTop:12}}>
+                            <Text 
+                            // style={{fontSize:12,}}
+                            >
+                            Graph shows are taking place according to the time
+                            </Text>
+                        </View>
                         <View style={{
                             borderWidth: 2,
-                            borderColor: 'black', height: 220
+                            borderColor: '#a6a6a6', height: 220
                             , marginHorizontal: 30, marginTop: 30,
-                            backgroundColor: 'black'
+                            backgroundColor: '#a6a6a6'
                         }}>
                             <View style={{ flexDirection: 'row' }}>
                                 <View style={{ height: 220, width: 100, padding: 20 }}>
@@ -1107,7 +1114,7 @@ export default class StepCountScreen extends React.Component {
 
                             </View>
                             <View style={{ backgroundColor: 'black', flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={{ color: '#e5e5e5',  }}>08:00</Text>
+                                <Text style={{ color: '#e5e5e5', }}>08:00</Text>
                                 <Text style={{ color: '#e5e5e5', }}>16:00</Text>
                                 <Text style={{ color: '#e5e5e5', }}>01:00</Text>
                             </View>

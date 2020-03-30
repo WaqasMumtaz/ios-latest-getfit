@@ -12,6 +12,8 @@ import ImagePicker from 'react-native-image-picker';
 import AsyncStorage from '@react-native-community/async-storage';
 const CryptoJS = require('crypto-js');
 import { Dropdown } from 'react-native-material-dropdown';
+import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
+
 
 
 const { height } = Dimensions.get('window');
@@ -253,7 +255,8 @@ class Payment extends React.Component {
                 isLoading: true
             })
         }
-        if (serviceName != '' && email != '' && paymentMonth != '' && amount != '' && currency != '' && transactionId != '' && receiptImg != '') {
+        if (serviceName != '' && email != '' && paymentMonth != '' && amount != 
+        '' && currency != '' && transactionId != '' && receiptImg != '') {
             console.log('data if condition work fine')
             let paymentObj = {
                 serviceName: serviceName,
@@ -265,6 +268,7 @@ class Payment extends React.Component {
                 receiptImg: receiptImg,
                 userId: userId
             }
+            console.log('Payment Object >>',paymentObj);
             let res = await HttpUtils.post('otherpayment', paymentObj);
             console.log('payment object >>', res)
             if (res.code == 200) {
@@ -279,6 +283,8 @@ class Payment extends React.Component {
                     currency: '',
                     transactionId: '',
                     receiptImg: ''
+                }, () => {
+                    this.toastFunction(`Successfully Submit Payment`, this.state.position, DURATION.LENGTH_LONG, true)
                 })
             }
             else {
@@ -296,11 +302,23 @@ class Payment extends React.Component {
                 })
             }
         }
-        // else {
-        // alert('Please insert all fields')
-        // }
+        else {
+        alert('Please insert all fields')
+        console.log('Esle Condition Work Because Image Is Undefined')
+        this.setState({
+            isLoading: false,
+            serviceName: '',
+            email: '',
+            paymentMonth: '',
+            amount: '',
+            currency: '',
+            transactionId: '',
+            receiptImg: ''
+        })
 
-        //}
+        }
+
+        //  }
 
 
 
@@ -469,6 +487,7 @@ class Payment extends React.Component {
         console.log('receipt image >>', receiptImg);
 
         return (
+            <KeyboardAwareView animated={true}>
             <View style={styles.mainContainer}>
                 <ScrollView style={{ backgroundColor: 'white', height: height }} contentContainerStyle={{ flexGrow: 1 }}  >
                     <View style={styles.headingContainer}>
@@ -888,6 +907,7 @@ class Payment extends React.Component {
                     </View>
                 </ScrollView>
             </View>
+            </KeyboardAwareView>  
         )
     }
 }

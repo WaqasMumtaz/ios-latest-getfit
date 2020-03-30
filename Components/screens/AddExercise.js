@@ -1,14 +1,18 @@
 import React from 'react';
-import { Text, View, ScrollView, Image, Dimensions, TouchableOpacity, Picker } from 'react-native';
+import { Text, View, Alert,
+    ScrollView, Image, Dimensions, TouchableOpacity, Picker } from 'react-native';
 import styles from '../Styling/AddExerciseStyle';
 import BriskScreen from '../screens/BriskScreen';
 // import AsyncStorage from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Dropdown } from 'react-native-material-dropdown';
+import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
+
 
 
 import HttpUtils from '../Services/HttpUtils';
 import Toast, { DURATION } from 'react-native-easy-toast'
+import { TextInput } from 'react-native-gesture-handler';
 
 const { height } = Dimensions.get('window');
 let exercise;
@@ -62,12 +66,15 @@ class AddExercise extends React.Component {
             briskExerciseAmount: '',
             exerciseArr: [],
             inputs: {},
+            customInputs:{},
             amountExcercise: '',
             indexNumber: {},
             units: {},
             incInputValue: '',
             position: 'top',
-
+            customExName: '',
+            customExAmount: '',
+            customExUnit: '',
         }
     }
 
@@ -120,9 +127,22 @@ class AddExercise extends React.Component {
     }
 
     addExercise = async () => {
-        const { inputs, units, date, time, userId, dayOfMonth, month, year } = this.state;
+        const { inputs, units, date, time,
+            userId, dayOfMonth, month, year,
+            customExUnit,
+            customExName,
+            customExAmount
+        } = this.state;
         const { navigate } = this.props.navigation;
         let dataArr = [];
+        // let data = this.state.customInputs;
+        // const value='';
+        // for(let key in data){
+        //     if(data.hasOwnProperty(key)) {
+        //       value = data[key];
+        //         //do something with value;
+        //     }
+        // }
         for (let i in uniqeArray) {
             const exerciseObj = {};
             exerciseObj.date = date;
@@ -131,19 +151,21 @@ class AddExercise extends React.Component {
             exerciseObj.month = month;
             exerciseObj.year = year;
             exerciseObj.userId = userId;
-            exerciseObj['exerciseName'] = uniqeArray[i];
+            exerciseObj['exerciseName'] =uniqeArray[i] != 'Add Custom Exercise' ? uniqeArray[i] : this.state.customInputs['Add Custom Exercise'];
             exerciseObj['exerciseAmount'] = inputs[uniqeArray[i]];
             exerciseObj['exerciseUnit'] = units[uniqeArray[i]];
             dataArr.push(exerciseObj)
         }
-        if (dataArr.length >= 0) {
+        console.log('Data Array Length >>', dataArr.length);
+        if (dataArr.length > 0) {
             AsyncStorage.setItem('logExercises', JSON.stringify(dataArr))
             this.toastFunction('Data Save Successfully', this.state.position, DURATION.LENGTH_LONG, true);
             navigate('Exerciselog');
             exerciseArry = [];
         }
-        else {
-            alert('Please Add Exercise')
+       else if(dataArr.length <= 0 || this.state.customInputs['Add Custom Exercise'] == '' 
+        && customExName == '' && customExUnit == '') {
+            Alert.alert('Please Add Exercise')
         }
     }
 
@@ -171,6 +193,16 @@ class AddExercise extends React.Component {
             }
         })
     }
+     
+    setCustomExeName= (index, text)=>{
+         this.setState({
+             customInputs:{
+                 ...this.state.customInputs,
+                 [index]:text
+             }
+         })
+    }
+
     increamentVal(data, item) {
         // let emptyArr={}
         // console.log('inc data >',Number(data))
@@ -303,35 +335,40 @@ class AddExercise extends React.Component {
             value: 'Bicep curls'
         }, {
             value: 'Side Crunch'
-        },{
-            value:'Reverse Crunches'
-        },{
-            value:'Vertical Leg Crunch'
+        }, {
+            value: 'Reverse Crunches'
+        }, {
+            value: 'Vertical Leg Crunch'
         },
         {
-            value:'Bicycle Exercise'
+            value: 'Bicycle Exercise'
         },
         {
-            value:'Rolling Plank Exercise'
+            value: 'Rolling Plank Exercise'
         },
         {
-            value:'Walking'
+            value: 'Walking'
         },
         {
-            value:'Running'
+            value: 'Running'
         },
         {
-            value:'Jogging'
+            value: 'Jogging'
+        },
+        {
+            value: 'Add Custom Exercise'
         }
-    ]
+        ]
 
         function onlyUnique(value, index, self) {
             return self.indexOf(value) === index;
         }
 
         uniqeArray = exerciseArry.filter(onlyUnique);
-
+        // const b = this.state.allExerciseName;
+        console.log('State Excercise Name >>', this.state.customInputs);
         return (
+            <KeyboardAwareView animated={true}>
             <ScrollView style={{ flex: 1, backgroundColor: 'white', height: height }} contentContainerStyle={{ flexGrow: 1 }}  >
                 <View style={styles.childContainer}>
                     <View style={styles.headingContainer}>
@@ -339,10 +376,11 @@ class AddExercise extends React.Component {
                             Add Exercise
                         </Text>
                     </View>
-                    <Text style={{color:'#A6A6A6',marginVertical:5}}>Select Exercise</Text>
-                    <View style={{ height: 40, borderWidth: 2, borderColor: '#e5e5e5' ,
-                      borderBottomWidth:0
-                     }}>
+                    <Text style={{ color: '#A6A6A6', marginVertical: 5 }}>Select Exercise</Text>
+                    <View style={{
+                        height: 40, borderWidth: 2, borderColor: '#e5e5e5',
+                        borderBottomWidth: 0
+                    }}>
                         <Dropdown
                             // label='Select an option..'
                             value={this.state.allExerciseName}
@@ -353,42 +391,68 @@ class AddExercise extends React.Component {
                             itemCount={8}
 
                         />
-                        {/* <Picker
-                            selectedValue={this.state.allExerciseName}
-                            style={{ height: 50, width: '100%', }}
-                            onValueChange={this.selectExercise}
-                        >
-                            <Picker.Item label='Select an options...' value='0' />
-                            <Picker.Item label="Brisk Walk" value="Brisk Walk" />
-                            <Picker.Item label="High paced jogging" value="High paced jogging" />
-                            <Picker.Item label="Push ups" value="Push ups" />
-                            <Picker.Item label="Bicep curls" value="Bicep curls" />
-                            <Picker.Item label="Side Crunch" value="Side Crunch" />
-                            <Picker.Item label="Reverse Crunches" value="Reverse Crunches" />
-                            <Picker.Item label="Vertical Leg Crunch" value="Vertical Leg Crunch" />
-                            <Picker.Item label="Bicycle Exercise" value="Bicycle Exercise" />
-                            <Picker.Item label="Rolling Plank Exercise" value="Rolling Plank Exercise" />
-                            <Picker.Item label="Walking" value="Walking" />
-                            <Picker.Item label="Running" value="Running" />
-                            <Picker.Item label="Jogging" value="Jogging" />
-                        </Picker> */}
                     </View>
                     {
                         uniqeArray.length >= 0 ?
                             uniqeArray.map((item, index) => {
-                                return (
-                                    <View style={{ marginTop: 20 }} key={index}>
-                                        <BriskScreen title={item}
-                                            backFunc={this.backToHome.bind(this, item)}
-                                            setAmount={(text) => this.setAmount(item, text)}
-                                            value={this.state.inputs[item]}
-                                            increamentVal={this.increamentVal.bind(this, this.state.inputs[item], item)}
-                                            //decrementVal={this.decrementVal}
-                                            updateUnit={(text) => this.updateUnit(item, text)}
-                                            indexNumber={indexNumber}
-                                            unit={this.state.units[item]} />
-                                    </View>
-                                )
+                                return  <View style={{ marginTop: 20 }} key={index}>
+                                <BriskScreen title={item}
+                                    backFunc={this.backToHome.bind(this, item)}
+                                    setAmount={(text) => this.setAmount(item, text)}
+                                    setCustomExeName={(text)=>this.setCustomExeName(item, text)}
+                                    value2={this.state.customInputs[item]}
+                                    value={this.state.inputs[item]}
+                                    increamentVal={this.increamentVal.bind(this, this.state.inputs[item], item)}
+                                    //decrementVal={this.decrementVal}
+                                    updateUnit={(text) => this.updateUnit(item, text)}
+                                    indexNumber={indexNumber}
+                                    unit={this.state.units[item]} />
+                            </View>
+                                    
+                                        //item == 'Add Custom Exercise' ?
+                                            // <View
+                                            //     style={{ marginTop: 20 }}
+                                            //     key={index}
+                                            //     backgroundColor='black'
+                                            //     height={123}
+                                            //     padding={10}
+                                            // >
+                                            //     <View style={styles.customInput}>
+                                            //         <TextInput
+                                            //             style={styles.customInputStyle}
+                                            //             placeholder="Enter Custom Exercis Name"
+                                            //             placeholderTextColor="black"
+                                            //             onChangeText={(text) => this.setState({ customExName: text })}
+                                            //             value={this.state.customExName}
+                                            //         />
+                                            //         <TouchableOpacity
+                                            //             onPress={this.backToHome.bind(this, item)}
+                                            //         >
+                                            //             <Image source={require('../icons/cancel.png')} style={styles.iconSize} />
+                                            //         </TouchableOpacity>
+                                            //     </View>
+                                            //     <View style={styles.customInputs}>
+                                                    
+                                            //         {/* <TextInput
+                                            //             style={styles.customInputStyle2}
+                                            //             placeholder="Exercise Amount"
+                                            //             placeholderTextColor="black"
+                                            //             onChangeText={(text) => this.setState({ customExAmount: text })}
+                                            //             value={this.state.customExAmount}
+                                            //         /> */}
+                                            //         <TextInput
+                                            //             style={styles.customInputStyle3}
+                                            //             placeholder="Exercise Unit"
+                                            //             placeholderTextColor="black"
+                                            //             onChangeText={(text) => this.setState({ customExUnit: text })}
+                                            //             value={this.state.customExUnit}
+                                            //         />
+                                            //     </View>
+                                            // </View>
+                                            
+                                           
+                                  
+
                             })
                             :
                             null
@@ -408,6 +472,8 @@ class AddExercise extends React.Component {
                 <View style={{ flex: 1.2 }}>
                 </View>
             </ScrollView>
+         </KeyboardAwareView>
+
         )
     }
 }

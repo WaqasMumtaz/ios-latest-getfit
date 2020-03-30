@@ -75,8 +75,41 @@ const styles =StyleSheet.create({
     headerIcon:{
         height:18,
         width:18
-    }
+    },
+    customInput:{
+     flexDirection:'row',
+     justifyContent:'space-between',
 
+    },
+    customInputs:{
+     flexDirection:'row',
+     justifyContent:'space-between',
+     marginTop:22
+    },
+    customInputStyle:{
+        height:40,
+        flex:1,
+        backgroundColor:'white',
+        marginRight:10
+    },
+    customInputStyle2:{
+        height:40,
+        flex:1,
+        backgroundColor:'white',
+        marginRight:12
+    },
+    customInputStyle3:{
+        height:40,
+        flex:1,
+        backgroundColor:'white',
+        marginLeft:12
+    },
+    iconSize:{
+        width:25,
+        height:25,
+        borderRadius:25/2
+        // marginRight:8
+    },
     
 })
 

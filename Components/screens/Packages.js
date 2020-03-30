@@ -194,7 +194,11 @@ class PackagesScreen extends React.Component {
                     <View style={styles.heading}>
                         <Text style={styles.headingText}>Packages</Text>
                     </View>
-                    <View style={styles.monthlyPlan}>
+                    <TouchableOpacity 
+                    style={styles.monthlyPlan} 
+                    activeOpacity={0.6}
+                    onPress={this.toggleDetail}
+                    >
                         <View style={styles.plan}>
                             <Text style={styles.monthlyText}>Monthly Plan</Text>
                             {
@@ -237,11 +241,15 @@ class PackagesScreen extends React.Component {
 
 
                         }
-                    </View>
+                    </TouchableOpacity>
 
                     {/* Medical Plan Card */}
 
-                    <View style={styles.monthlyPlan}>
+                    <TouchableOpacity 
+                    style={styles.monthlyPlan}
+                    activeOpacity={0.6}
+                    onPress={this.medicalToggel}
+                    >
                         <View style={styles.plan}>
                             <Text style={styles.monthlyText}>Medical Condition Plan</Text>
                             {
@@ -286,11 +294,15 @@ class PackagesScreen extends React.Component {
 
 
                         }
-                    </View>
+                    </TouchableOpacity>
 
                     {/* Transfermation Plan Card  */}
 
-                    <View style={styles.monthlyPlan}>
+                    <TouchableOpacity 
+                    style={styles.monthlyPlan}                    
+                    activeOpacity={0.6}
+                    onPress={this.transformationToggel}
+                    >
                         <View style={styles.plan}>
                             <Text style={styles.monthlyText}>The Transformation Plan</Text>
                             {
@@ -319,7 +331,7 @@ class PackagesScreen extends React.Component {
                                 <View>
                                     <Text style={styles.detailPrice}>For Pakistanis : PKR 15000{"\n"}For Overseas : $150</Text>
                                     <View style={styles.instructionDetail}>
-                                        <Text style={{ color: '#7e7e7e' }}>Duration 3 Month</Text>
+                                        <Text style={{ color: '#7e7e7e', fontFamily: 'MontserratMedium', }}>Duration 3 Month</Text>
                                         <Text style={styles.instText}>- Customized meal plans</Text>
                                         <Text style={styles.instText}>- Home-based workouts</Text>
                                         <Text style={styles.instText}>- Coach support</Text>
@@ -334,11 +346,15 @@ class PackagesScreen extends React.Component {
 
 
                         }
-                    </View>
+                    </TouchableOpacity>
 
                     {/* Post Partum Plan Card*/}
 
-                    <View style={styles.monthlyPlan}>
+                    <TouchableOpacity 
+                    style={styles.monthlyPlan}
+                    activeOpacity={0.6}
+                    onPress={this.partumToggel}
+                    >
                         <View style={styles.plan}>
                             <Text style={styles.monthlyText}>Post Partum Plan</Text>
                             {
@@ -383,7 +399,7 @@ class PackagesScreen extends React.Component {
 
 
                         }
-                    </View>
+                    </TouchableOpacity>
 
                 </View>
                 <Toast ref="toastWithStyle"

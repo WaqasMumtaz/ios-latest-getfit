@@ -9,7 +9,7 @@ import Toast, { DURATION } from 'react-native-easy-toast';
 // import PickDate from '../Common/datePicker';
 // import DatePicker from 'react-native-datepicker';
 import OverlayLoader from '../Loader/OverlaySpinner'
-
+import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
 
 
 const { height } = Dimensions.get('window');
@@ -368,7 +368,7 @@ class LogMeasurementsScreen extends React.Component {
         )
         //console.log('date >>', date)
         return (
-
+            <KeyboardAwareView animated={true}>
             <View style={styles.mainContainer}>
                 <ScrollView style={{ flex: 1, backgroundColor: 'white', height: height }} contentContainerStyle={{ flexGrow: 1 }}  >
                     {/* <View style={styles.childContainer}> */}
@@ -694,7 +694,7 @@ class LogMeasurementsScreen extends React.Component {
                 </ScrollView>
 
             </View>
-
+            </KeyboardAwareView>
         )
 
     }

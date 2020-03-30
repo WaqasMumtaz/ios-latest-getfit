@@ -126,6 +126,14 @@ const styles =StyleSheet.create({
         marginRight:10, 
         flexDirection: 'row',
         alignItems:'center'  
+    },
+    customInput:{
+        height: 40,
+        width: '60%', 
+        textAlign: 'center',
+        color:'black',
+        backgroundColor:'white',
+        marginLeft:10
     }
 })   
 

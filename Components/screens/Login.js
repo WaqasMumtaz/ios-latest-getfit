@@ -200,9 +200,9 @@ getTokenPermission=()=>{
                 const res = Array.from(uniq).map(e => JSON.parse(e));
                 // console.log('Uniq Array >>', res);
                 let traineeDataArr = [];
-                for (var i in trainyData) {
-                  trainyData[i].type = 'Trainee'
-                  traineeDataArr.push(trainyData[i])
+                for (var i in res) {
+                  res[i].type = 'Trainee'
+                  traineeDataArr.push(res[i])
                 }
                 AsyncStorage.setItem('opponentProfile', JSON.stringify(traineeDataArr));
               }

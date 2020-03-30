@@ -1235,7 +1235,7 @@ class Macrocalculator extends React.Component {
                             showDesiredBtn ?
                                 <View>
                                     <View style={{ marginTop: 8 }}>
-                                        <Text style={styles.unitPara}>What is your desired sirplus</Text>
+                                        <Text style={styles.unitPara}>What is your desired surplus</Text>
                                     </View>
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 5 }}>
                                         <TouchableOpacity
